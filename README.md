@@ -6,7 +6,7 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff0055?style=flat-square&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 [![Static Export](https://img.shields.io/badge/Deployment-Static_Export-14b8a6?style=flat-square)](https://laurenz-rauscher.at)
 
-> Personal portfolio website showcasing projects, skills, and experience — built with a focus on subtle animations, warm aesthetics, and a human touch.
+> Personal portfolio website showcasing projects, skills, and experience
 
 🌐 **Live:** [laurenz-rauscher.at](https://laurenz-rauscher.at)
 
@@ -53,13 +53,6 @@
 - Success state with `CheckCircle` icon and "Send another" reset option
 - Social links (GitHub, LinkedIn) + direct email link
 
-### Visual Details
-- **Film grain overlay** via SVG noise (`body::before`) — adds warmth and texture
-- **Custom scrollbar** — orange thumb on dark track
-- **Orange text selection** highlight
-- Background grid pattern (`bg-grid` class)
-- Gradient text utility (orange → amber → teal)
-
 ---
 
 ## 🎨 Design System
@@ -74,14 +67,12 @@
 | Featured / warm | Amber | `#fbbf24` |
 | Text | Slate 100 | `#f1f5f9` |
 
-> No purple or violet — intentional design decision for a warm, non-generic aesthetic.
-
 ### Typography
 - **Sans:** Inter (Google Fonts)
 - **Mono:** JetBrains Mono (Google Fonts) — used for section numbers and tech tags
 
 ### Animation Philosophy
-Apple.com-inspired: subtle, purposeful, fast. Animations reveal content — they don't distract from it.
+Animations reveal content — they don't distract from it.
 
 | Variant | Description |
 |---------|-------------|
