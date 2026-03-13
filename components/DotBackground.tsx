@@ -6,7 +6,7 @@ import { useTheme } from './ThemeProvider'
 const SPACING   = 38
 const BASE_R    = 0.8
 const MAX_R     = 4
-const INFLUENCE = 120
+const INFLUENCE = 150
 
 export default function DotBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
