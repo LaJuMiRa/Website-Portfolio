@@ -50,7 +50,7 @@ export default function Navbar() {
             </Link>
           ))}
           <a
-            href="/resume.pdf"
+            href="/Lebenslauf_Rauscher.pdf"
             download
             className="flex items-center gap-1.5 text-sm px-4 py-2 border border-orange-500/40 text-orange-400 hover:bg-orange-500/10 rounded-full transition-all duration-300 font-medium"
           >
@@ -83,7 +83,7 @@ export default function Navbar() {
             </Link>
           ))}
           <a
-            href="/resume.pdf"
+            href="/Lebenslauf_Rauscher.pdf"
             download
             className="text-orange-400 text-sm font-medium py-1 flex items-center gap-2"
           >

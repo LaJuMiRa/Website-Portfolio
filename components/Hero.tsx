@@ -128,7 +128,7 @@ export default function Hero() {
             variants={fadeUp}
             className="text-xl md:text-2xl text-neutral-300 font-light mb-4"
           >
-            [YOUR TITLE — z.B.&nbsp;&quot;Software Developer &amp; CS Student&quot;]
+            CS Student @ FH Wiener Neustadt
           </motion.p>
 
           {/* ✏️  Deine Tagline */}
@@ -136,12 +136,12 @@ export default function Hero() {
             variants={fadeUp}
             className="text-neutral-500 max-w-xl mb-12 text-base md:text-lg leading-relaxed"
           >
-            [YOUR TAGLINE — z.B.&nbsp;&quot;Passionate about building elegant software solutions.&quot;]
+            Still learning. Already building
           </motion.p>
 
           {/* CTAs */}
           <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-            <a href="/resume.pdf" download className="btn-primary">
+            <a href="/Lebenslauf_Rauscher.pdf" download className="btn-primary">
               <Download size={17} />
               Download Resume
             </a>
