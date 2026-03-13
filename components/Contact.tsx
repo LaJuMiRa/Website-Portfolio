@@ -63,8 +63,8 @@ export default function Contact() {
                   transition={{ duration: 0.4 }} className="card flex flex-col items-start gap-4 py-10">
                   <CheckCircle className="text-teal-400" size={36} />
                   <div>
-                    <p className="text-white font-semibold text-lg">Message opened!</p>
-                    <p className="text-neutral-400 text-sm mt-1">
+                    <p className="font-semibold text-lg text-[var(--text-primary)]">Message opened!</p>
+                    <p className="text-sm mt-1 text-[var(--text-secondary)]">
                       Your default mail client opened with the message pre-filled.
                       Just hit send and I&apos;ll get back to you soon.
                     </p>
@@ -78,18 +78,18 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="card space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="name" className="text-neutral-400 text-xs font-mono">Name *</label>
+                      <label htmlFor="name" className="text-xs font-mono text-[var(--text-secondary)]">Name *</label>
                       <input id="name" type="text" placeholder="Erika Mustermann"
                         value={name} onChange={(e) => setName(e.target.value)} required className="form-input" />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="email" className="text-neutral-400 text-xs font-mono">Email *</label>
+                      <label htmlFor="email" className="text-xs font-mono text-[var(--text-secondary)]">Email *</label>
                       <input id="email" type="email" placeholder="erika@example.com"
                         value={email} onChange={(e) => setEmail(e.target.value)} required className="form-input" />
                     </div>
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="message" className="text-neutral-400 text-xs font-mono">Message *</label>
+                    <label htmlFor="message" className="text-xs font-mono text-[var(--text-secondary)]">Message *</label>
                     <textarea id="message" rows={6} placeholder="Hi Laurenz, I'd love to talk about..."
                       value={message} onChange={(e) => setMessage(e.target.value)} required className="form-input resize-none" />
                   </div>
@@ -103,24 +103,24 @@ export default function Contact() {
             {/* ── Right: intro + social ── */}
             <motion.div variants={stagger} className="md:col-span-2 space-y-8">
               {/* ✏️  Passe diesen Text an */}
-              <motion.p variants={fadeUpSoft} className="text-neutral-400 leading-relaxed text-[0.95rem]">
+              <motion.p variants={fadeUpSoft} className="leading-relaxed text-[0.95rem] text-[var(--text-secondary)]">
                 I&apos;m currently open to new opportunities. Whether you have a project
                 in mind, a role that might be a good fit, or just want to connect —
                 feel free to reach out.
               </motion.p>
 
               <motion.div variants={fadeUpSoft}>
-                <p className="text-neutral-600 text-[11px] font-mono uppercase tracking-[0.2em] mb-3">
+                <p className="text-[11px] font-mono uppercase tracking-[0.2em] mb-3 text-[var(--text-faint)]">
                   Find me online
                 </p>
                 <div className="flex flex-col gap-3">
                   {socialLinks.map((s) => (
                     <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
                       className={`card flex items-center gap-4 transition-all duration-300 group ${s.hoverBorder}`}>
-                      <s.icon size={20} className={`shrink-0 text-neutral-500 transition-all duration-200 group-hover:scale-110 ${s.hoverText}`} />
+                      <s.icon size={20} className={`shrink-0 transition-all duration-200 group-hover:scale-110 text-[var(--text-muted)] ${s.hoverText}`} />
                       <div className="min-w-0">
-                        <p className="text-white text-sm font-medium">{s.name}</p>
-                        <p className="text-neutral-500 text-xs truncate">{s.handle}</p>
+                        <p className="text-sm font-medium text-[var(--text-primary)]">{s.name}</p>
+                        <p className="text-xs truncate text-[var(--text-muted)]">{s.handle}</p>
                       </div>
                     </a>
                   ))}
@@ -128,7 +128,7 @@ export default function Contact() {
               </motion.div>
 
               <motion.div variants={fadeUpSoft}>
-                <p className="text-neutral-600 text-[11px] font-mono uppercase tracking-[0.2em] mb-2">
+                <p className="text-[11px] font-mono uppercase tracking-[0.2em] mb-2 text-[var(--text-faint)]">
                   Or reach me directly
                 </p>
                 <a href={`mailto:${EMAIL}`}

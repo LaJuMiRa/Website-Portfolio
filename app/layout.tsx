@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
+import ThemeProvider from '@/components/ThemeProvider'
+import DotBackground from '@/components/DotBackground'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,9 +30,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-[#080808] text-slate-100 antialiased font-sans">
-        {children}
+    <html lang="en" className={`dark scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function(){
+            try {
+              var t = localStorage.getItem('theme');
+              var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+              var theme = t || sys;
+              if (theme === 'light') {
+                document.documentElement.classList.remove('dark');
+              }
+            } catch(e) {}
+          })();
+        `}} />
+      </head>
+      <body className="antialiased font-sans">
+        <ThemeProvider>
+          <DotBackground />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

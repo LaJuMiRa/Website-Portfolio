@@ -117,7 +117,7 @@ export default function Hero() {
               animate={{ y: '0%' }}
               transition={{ duration: 0.7, ease: lnEase, delay: 0.42 }}
             >
-              <h1 className="text-[clamp(4rem,12vw,10rem)] font-extrabold leading-none tracking-tight text-white">
+              <h1 className="text-[clamp(4rem,12vw,10rem)] font-extrabold leading-none tracking-tight text-[var(--text-primary)]">
                 Rauscher.
               </h1>
             </motion.div>
@@ -126,7 +126,7 @@ export default function Hero() {
           {/* ✏️  Dein Titel */}
           <motion.p
             variants={fadeUp}
-            className="text-xl md:text-2xl text-neutral-300 font-light mb-4"
+            className="text-xl md:text-2xl font-light mb-4 text-[var(--text-secondary)]"
           >
             CS Student @ FH Wiener Neustadt
           </motion.p>
@@ -134,7 +134,7 @@ export default function Hero() {
           {/* ✏️  Deine Tagline */}
           <motion.p
             variants={fadeUp}
-            className="text-neutral-500 max-w-xl mb-12 text-base md:text-lg leading-relaxed"
+            className="max-w-xl mb-12 text-base md:text-lg leading-relaxed text-[var(--text-muted)]"
           >
             Still learning. Already building
           </motion.p>
@@ -161,12 +161,12 @@ export default function Hero() {
         animate="visible"
         transition={{ delay: 1.8 }}
       >
-        <span className="text-neutral-600 text-[10px] font-mono tracking-[0.2em] uppercase">Scroll</span>
+        <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[var(--text-faint)]">Scroll</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
         >
-          <ArrowDown className="text-neutral-600" size={15} />
+          <ArrowDown className="text-[var(--text-faint)]" size={15} />
         </motion.div>
       </motion.div>
     </section>

@@ -18,7 +18,7 @@ export default function Home() {
         <Projects />
         <Contact />
       </main>
-      <footer className="text-center py-8 text-slate-600 text-sm border-t border-white/[0.04]">
+      <footer className="relative z-10 text-center py-8 text-sm text-[var(--text-faint)] border-t border-[var(--border)]">
         <p>© 2026 Laurenz Rauscher · Built with Next.js & Tailwind CSS</p>
       </footer>
     </>

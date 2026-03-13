@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, Download } from 'lucide-react'
+import ThemeToggle from './ThemeToggle'
 
 const navLinks = [
   { href: '#about',      label: 'About' },
@@ -26,9 +27,13 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-[#080808]/80 backdrop-blur-xl border-b border-white/[0.06] py-3'
+          ? 'backdrop-blur-xl border-b py-3'
           : 'bg-transparent py-5'
       }`}
+      style={scrolled ? {
+        backgroundColor: 'var(--nav-bg-scrolled)',
+        borderColor: 'var(--border)',
+      } : undefined}
     >
       <div className="w-full px-8 md:px-12 lg:px-16 flex items-center justify-between">
 
@@ -43,12 +48,16 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-neutral-400 hover:text-white text-sm font-medium transition-colors relative group"
+              className="text-sm font-medium transition-colors relative group"
+              style={{ color: 'var(--text-secondary)' }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-primary)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-secondary)')}
             >
               {link.label}
               <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-orange-500 transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
+          <ThemeToggle />
           <a
             href="/Lebenslauf_Rauscher.pdf"
             download
@@ -61,7 +70,8 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-slate-400 hover:text-white transition-colors"
+          className="md:hidden transition-colors"
+          style={{ color: 'var(--text-secondary)' }}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -71,25 +81,35 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-[#080808]/95 backdrop-blur-xl border-b border-white/[0.06] px-6 py-5 flex flex-col gap-4">
+        <div
+          className="md:hidden backdrop-blur-xl border-b px-6 py-5 flex flex-col gap-4"
+          style={{
+            backgroundColor: 'var(--mobile-menu-bg)',
+            borderColor: 'var(--border)',
+          }}
+        >
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-neutral-300 hover:text-white py-1 text-sm font-medium transition-colors"
+              className="py-1 text-sm font-medium transition-colors"
+              style={{ color: 'var(--text-secondary)' }}
             >
               {link.label}
             </Link>
           ))}
-          <a
-            href="/Lebenslauf_Rauscher.pdf"
-            download
-            className="text-orange-400 text-sm font-medium py-1 flex items-center gap-2"
-          >
-            <Download size={14} />
-            Download Resume
-          </a>
+          <div className="flex items-center gap-3 pt-1">
+            <ThemeToggle />
+            <a
+              href="/Lebenslauf_Rauscher.pdf"
+              download
+              className="text-orange-400 text-sm font-medium py-1 flex items-center gap-2"
+            >
+              <Download size={14} />
+              Download Resume
+            </a>
+          </div>
         </div>
       )}
     </nav>

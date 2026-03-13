@@ -18,7 +18,9 @@ const technologies: { name: string; level: string; icon: string; color: string; 
 
 const comingSoon = ['Rust', 'TypeScript', 'Docker', 'React', 'Linux']
 const levelColor: Record<string, string> = {
-  Primary: 'text-orange-400', Learning: 'text-teal-400', Familiar: 'text-neutral-400',
+  Primary: 'dark:text-orange-400 text-orange-500',
+  Learning: 'dark:text-teal-400 text-teal-600',
+  Familiar: 'text-[var(--text-secondary)]',
 }
 
 export default function TechStack() {
@@ -49,7 +51,7 @@ export default function TechStack() {
                     {tech.icon}
                   </div>
                   <div>
-                    <p className="text-white font-semibold text-sm">{tech.name}</p>
+                    <p className="font-semibold text-sm text-[var(--text-primary)]">{tech.name}</p>
                     <p className={`text-xs mt-0.5 font-mono ${levelColor[tech.level] ?? 'text-neutral-400'}`}>
                       {tech.level}
                     </p>
@@ -60,7 +62,7 @@ export default function TechStack() {
           </motion.div>
 
           <motion.div variants={fadeUp}>
-            <p className="text-neutral-600 text-xs font-mono mb-3 tracking-wider">
+            <p className="text-xs font-mono mb-3 tracking-wider text-[var(--text-faint)]">
               // currently exploring &amp; planning to learn
             </p>
             <div className="flex flex-wrap gap-2">

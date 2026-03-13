@@ -54,25 +54,25 @@ export default function Projects() {
                   </span>
                 )}
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-white font-semibold leading-snug group-hover:text-orange-400 transition-colors pr-2">
+                  <h3 className="font-semibold leading-snug transition-colors pr-2 text-[var(--text-primary)] group-hover:text-orange-500 dark:group-hover:text-orange-400">
                     {project.title}
                   </h3>
                   <div className="flex items-center gap-3 shrink-0 mt-0.5">
                     {project.github && (
                       <a href={project.github} target="_blank" rel="noopener noreferrer"
-                        className="text-neutral-500 hover:text-white transition-colors" aria-label="GitHub">
+                        className="transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]" aria-label="GitHub">
                         <Github size={17} />
                       </a>
                     )}
                     {project.live && (
                       <a href={project.live} target="_blank" rel="noopener noreferrer"
-                        className="text-neutral-500 hover:text-teal-400 transition-colors" aria-label="Live demo">
+                        className="transition-colors text-[var(--text-muted)] hover:text-teal-400" aria-label="Live demo">
                         <ExternalLink size={17} />
                       </a>
                     )}
                   </div>
                 </div>
-                <p className="text-neutral-400 text-sm leading-relaxed flex-1 mb-5">{project.description}</p>
+                <p className="text-sm leading-relaxed flex-1 mb-5 text-[var(--text-secondary)]">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {project.tech.map((t) => <span key={t} className="tech-tag">{t}</span>)}
                 </div>

@@ -28,7 +28,7 @@ export default function About() {
           <div className="grid md:grid-cols-5 gap-14 items-start">
 
             {/* ── Text ── */}
-            <motion.div variants={stagger} className="md:col-span-3 space-y-5 text-neutral-400 leading-relaxed text-[0.95rem]">
+            <motion.div variants={stagger} className="md:col-span-3 space-y-5 leading-relaxed text-[0.95rem] text-[var(--text-secondary)]">
               {/* ✏️  ABSATZ 1 */}
               <motion.p variants={fadeUpSoft}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -57,7 +57,7 @@ export default function About() {
                 ].map((fact) => (
                   <motion.div key={fact.label} variants={fadeUpSoft} className="card py-3 px-4">
                     <p className="text-teal-400 text-xs font-mono mb-0.5">{fact.label}</p>
-                    <p className="text-white text-sm font-medium">{fact.value}</p>
+                    <p className="text-sm font-medium text-[var(--text-primary)]">{fact.value}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -79,8 +79,8 @@ export default function About() {
                     <span className="gradient-text text-4xl font-extrabold font-mono">LR</span>
                   </div>
                   <div>
-                    <p className="text-white font-semibold text-lg">Laurenz Rauscher</p>
-                    <p className="text-neutral-500 text-sm mt-1">[YOUR TITLE]</p>
+                    <p className="font-semibold text-lg text-[var(--text-primary)]">Laurenz Rauscher</p>
+                    <p className="text-sm mt-1 text-[var(--text-muted)]">[YOUR TITLE]</p>
                   </div>
                 </div>
                 <div className="absolute -inset-4 bg-orange-500/5 rounded-3xl blur-2xl -z-10" />

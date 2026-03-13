@@ -59,21 +59,21 @@ export default function Experience() {
             {experiences.map((exp, i) => (
               <motion.div key={i} variants={fadeUpSoft} className="relative pl-10 timeline-item">
                 {/* Timeline dot */}
-                <div className="absolute left-0 top-[22px] w-3.5 h-3.5 rounded-full bg-orange-500 border-2 border-[#080808] ring-2 ring-orange-500/25" />
+                <div className="absolute left-0 top-[22px] w-3.5 h-3.5 rounded-full bg-orange-500 ring-2 ring-orange-500/25" style={{ border: '2px solid var(--bg)' }} />
 
                 <div className="card">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                     <div>
-                      <h3 className="text-white font-semibold text-lg leading-snug">{exp.role}</h3>
+                      <h3 className="font-semibold text-lg leading-snug text-[var(--text-primary)]">{exp.role}</h3>
                       <p className="text-orange-400 font-medium text-sm mt-0.5 flex items-center gap-1.5">
                         <Briefcase size={12} />{exp.company}
                       </p>
                     </div>
                     <div className="flex flex-col gap-1.5 sm:items-end shrink-0">
-                      <span className="flex items-center gap-1.5 text-neutral-500 text-xs font-mono">
+                      <span className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-muted)]">
                         <Calendar size={12} />{exp.period}
                       </span>
-                      <span className="flex items-center gap-1.5 text-neutral-500 text-xs font-mono">
+                      <span className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-muted)]">
                         <MapPin size={12} />{exp.location}
                       </span>
                       <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 w-fit">
@@ -84,7 +84,7 @@ export default function Experience() {
 
                   <ul className="space-y-2 mb-5">
                     {exp.bullets.map((point, j) => (
-                      <li key={j} className="flex gap-2.5 text-neutral-400 text-sm leading-relaxed">
+                      <li key={j} className="flex gap-2.5 text-sm leading-relaxed text-[var(--text-secondary)]">
                         <span className="text-orange-500 mt-[5px] shrink-0 text-[7px]">◆</span>
                         {point}
                       </li>
