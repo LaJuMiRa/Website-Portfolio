@@ -50,10 +50,10 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled ? 'backdrop-blur-xl border-b py-3' : 'bg-transparent py-5'
       }`}
-      style={scrolled ? {
-        backgroundColor: 'var(--nav-bg-scrolled)',
-        borderColor: 'var(--border)',
-      } : undefined}
+      style={{
+        paddingTop: 'env(safe-area-inset-top)',
+        ...(scrolled ? { backgroundColor: 'var(--nav-bg-scrolled)', borderColor: 'var(--border)' } : {}),
+      }}
     >
       <div className="w-full px-8 md:px-12 lg:px-16 flex items-center justify-between">
 

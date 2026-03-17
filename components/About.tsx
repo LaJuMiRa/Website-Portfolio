@@ -64,7 +64,7 @@ export default function About() {
             </motion.div>
 
             {/* ── Avatar ── */}
-            <motion.div variants={fadeUp} className="md:col-span-2">
+            <motion.div variants={fadeUp} className="md:col-span-2 order-first md:order-none">
               <div className="relative max-w-xs">
                 <div className="card aspect-square flex flex-col items-center justify-center gap-5 text-center">
                   {/*
