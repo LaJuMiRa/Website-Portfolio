@@ -30,10 +30,16 @@ export default function Contact() {
   const [email,   setEmail]   = useState('')
   const [message, setMessage] = useState('')
   const [sent,    setSent]    = useState(false)
+  const [errors,  setErrors]  = useState<{ name?: string; email?: string; message?: string }>({})
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (!name || !email || !message) return
+    const newErrors: typeof errors = {}
+    if (!name)    newErrors.name    = 'Required'
+    if (!email)   newErrors.email   = 'Required'
+    if (!message) newErrors.message = 'Required'
+    if (Object.keys(newErrors).length) { setErrors(newErrors); return }
+    setErrors({})
     const subject = encodeURIComponent(`Portfolio — Message from ${name}`)
     const body    = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
     window.open(`mailto:${EMAIL}?subject=${subject}&body=${body}`)
@@ -80,18 +86,21 @@ export default function Contact() {
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="name" className="text-xs font-mono text-[var(--text-secondary)]">Name *</label>
                       <input id="name" type="text" placeholder="Erika Mustermann"
-                        value={name} onChange={(e) => setName(e.target.value)} required className="form-input" />
+                        value={name} onChange={(e) => { setName(e.target.value); if (errors.name) setErrors(prev => ({ ...prev, name: undefined })) }} className="form-input" />
+                      {errors.name && <span className="text-xs text-red-400 mt-0.5">{errors.name}</span>}
                     </div>
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="email" className="text-xs font-mono text-[var(--text-secondary)]">Email *</label>
                       <input id="email" type="email" placeholder="erika@example.com"
-                        value={email} onChange={(e) => setEmail(e.target.value)} required className="form-input" />
+                        value={email} onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors(prev => ({ ...prev, email: undefined })) }} className="form-input" />
+                      {errors.email && <span className="text-xs text-red-400 mt-0.5">{errors.email}</span>}
                     </div>
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label htmlFor="message" className="text-xs font-mono text-[var(--text-secondary)]">Message *</label>
                     <textarea id="message" rows={6} placeholder="Hi Laurenz, I'd love to talk about..."
-                      value={message} onChange={(e) => setMessage(e.target.value)} required className="form-input resize-none" />
+                      value={message} onChange={(e) => { setMessage(e.target.value); if (errors.message) setErrors(prev => ({ ...prev, message: undefined })) }} className="form-input resize-none" />
+                    {errors.message && <span className="text-xs text-red-400 mt-0.5">{errors.message}</span>}
                   </div>
                   <button type="submit" className="btn-primary w-full sm:w-auto justify-center">
                     <Send size={16} /> Send Message

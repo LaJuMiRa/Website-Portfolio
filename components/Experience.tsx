@@ -59,7 +59,12 @@ export default function Experience() {
             {experiences.map((exp, i) => (
               <motion.div key={i} variants={fadeUpSoft} className="relative pl-10 timeline-item">
                 {/* Timeline dot */}
-                <div className="absolute left-0 top-[22px] w-3.5 h-3.5 rounded-full bg-orange-500 ring-2 ring-orange-500/25" style={{ border: '2px solid var(--bg)' }} />
+                <motion.div
+                  className="absolute left-0 top-[22px] w-3.5 h-3.5 rounded-full bg-orange-500 ring-2 ring-orange-500/25"
+                  style={{ border: '2px solid var(--bg)' }}
+                  whileHover={{ scale: 1.4, boxShadow: '0 0 10px rgba(249,115,22,0.6)' }}
+                  transition={{ duration: 0.15 }}
+                />
 
                 <div className="card">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">

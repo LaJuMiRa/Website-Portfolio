@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, Download } from 'lucide-react'
-import { motion, useScroll } from 'framer-motion'
+import { motion, useScroll, AnimatePresence } from 'framer-motion'
 import ThemeToggle from './ThemeToggle'
 
 const navLinks = [
@@ -71,6 +71,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className="text-sm transition-colors relative group"
+                aria-current={isActive ? 'page' : undefined}
                 style={{
                   color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
                   fontWeight: isActive ? 600 : 400,
@@ -106,38 +107,48 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div
-          className="md:hidden backdrop-blur-xl border-b px-6 py-5 flex flex-col gap-4"
-          style={{
-            backgroundColor: 'var(--mobile-menu-bg)',
-            borderColor: 'var(--border)',
-          }}
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="py-1 text-sm font-medium transition-colors"
-              style={{ color: activeHref === link.href ? 'var(--text-primary)' : 'var(--text-secondary)' }}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <div className="flex items-center gap-3 pt-1">
-            <ThemeToggle />
-            <a
-              href="/Lebenslauf_Rauscher.pdf"
-              download
-              className="text-orange-400 text-sm font-medium py-1 flex items-center gap-2"
-            >
-              <Download size={14} />
-              Download Resume
-            </a>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="md:hidden backdrop-blur-xl border-b px-6 py-5 flex flex-col gap-4"
+            style={{
+              backgroundColor: 'var(--mobile-menu-bg)',
+              borderColor: 'var(--border)',
+            }}
+          >
+            {navLinks.map((link) => {
+              const isActive = activeHref === link.href
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="py-1 text-sm font-medium transition-colors"
+                  aria-current={isActive ? 'page' : undefined}
+                  style={{ color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)' }}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
+            <div className="flex items-center gap-3 pt-1">
+              <ThemeToggle />
+              <a
+                href="/Lebenslauf_Rauscher.pdf"
+                download
+                className="text-orange-400 text-sm font-medium py-1 flex items-center gap-2"
+              >
+                <Download size={14} />
+                Download Resume
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Scroll progress bar */}
       <motion.div
