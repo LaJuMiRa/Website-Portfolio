@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, Download } from 'lucide-react'
+import { motion, useScroll } from 'framer-motion'
 import ThemeToggle from './ThemeToggle'
 
 const navLinks = [
@@ -14,8 +15,10 @@ const navLinks = [
 ]
 
 export default function Navbar() {
-  const [scrolled, setScrolled]   = useState(false)
-  const [menuOpen, setMenuOpen]   = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [activeHref, setActiveHref] = useState('')
+  const { scrollYProgress } = useScroll()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -23,12 +26,29 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Active section detection
+  useEffect(() => {
+    const ids = navLinks.map(l => l.href.slice(1))
+    const observers: IntersectionObserver[] = []
+
+    ids.forEach(id => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveHref(`#${id}`) },
+        { threshold: 0.4 }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+
+    return () => observers.forEach(o => o.disconnect())
+  }, [])
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'backdrop-blur-xl border-b py-3'
-          : 'bg-transparent py-5'
+        scrolled ? 'backdrop-blur-xl border-b py-3' : 'bg-transparent py-5'
       }`}
       style={scrolled ? {
         backgroundColor: 'var(--nav-bg-scrolled)',
@@ -44,19 +64,25 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium transition-colors relative group"
-              style={{ color: 'var(--text-secondary)' }}
-              onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-primary)')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-secondary)')}
-            >
-              {link.label}
-              <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-orange-500 transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeHref === link.href
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm transition-colors relative group"
+                style={{
+                  color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
+                  fontWeight: isActive ? 600 : 400,
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-primary)')}
+                onMouseLeave={e => (e.currentTarget.style.color = isActive ? 'var(--text-primary)' : 'var(--text-secondary)')}
+              >
+                {link.label}
+                <span className={`absolute -bottom-0.5 left-0 h-px bg-orange-500 transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+              </Link>
+            )
+          })}
           <ThemeToggle />
           <a
             href="/Lebenslauf_Rauscher.pdf"
@@ -94,7 +120,7 @@ export default function Navbar() {
               href={link.href}
               onClick={() => setMenuOpen(false)}
               className="py-1 text-sm font-medium transition-colors"
-              style={{ color: 'var(--text-secondary)' }}
+              style={{ color: activeHref === link.href ? 'var(--text-primary)' : 'var(--text-secondary)' }}
             >
               {link.label}
             </Link>
@@ -112,6 +138,12 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      {/* Scroll progress bar */}
+      <motion.div
+        style={{ scaleX: scrollYProgress }}
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-orange-500 origin-left"
+      />
     </nav>
   )
 }
