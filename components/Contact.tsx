@@ -6,17 +6,17 @@ import { useRef } from 'react'
 import { Send, Github, Linkedin, CheckCircle } from 'lucide-react'
 import { stagger, slideFromLeft, clipReveal, fadeUp, fadeUpSoft, fadeIn } from '@/lib/animations'
 
-const EMAIL = 'your@email.com'                              // ✏️  deine E-Mail
+const EMAIL = 'laurenz.rauscher@gmail.com'                              // ✏️  deine E-Mail
 
 const socialLinks = [
   {
-    name: 'GitHub',   handle: '@YOUR_USERNAME',                       // ✏️
-    href: 'https://github.com/YOUR_USERNAME',                         // ✏️
+    name: 'GitHub',   handle: '@LaJuMiRa',                       // ✏️
+    href: 'https://github.com/LaJuMiRa',                         // ✏️
     icon: Github,   hoverBorder: 'hover:border-white/25',   hoverText: 'group-hover:text-white',
   },
   {
     name: 'LinkedIn', handle: 'Laurenz Rauscher',
-    href: 'https://linkedin.com/in/YOUR_PROFILE',                     // ✏️
+    href: 'www.linkedin.com/in/laurenz-rauscher-299931234',                 // ✏️
     icon: Linkedin, hoverBorder: 'hover:border-sky-500/40', hoverText: 'group-hover:text-sky-400',
   },
 ]
@@ -85,13 +85,13 @@ export default function Contact() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="name" className="text-xs font-mono text-[var(--text-secondary)]">Name *</label>
-                      <input id="name" type="text" placeholder="Erika Mustermann"
+                      <input id="name" type="text" placeholder="Max Mustermann"
                         value={name} onChange={(e) => { setName(e.target.value); if (errors.name) setErrors(prev => ({ ...prev, name: undefined })) }} className="form-input" />
                       {errors.name && <span className="text-xs text-red-400 mt-0.5">{errors.name}</span>}
                     </div>
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="email" className="text-xs font-mono text-[var(--text-secondary)]">Email *</label>
-                      <input id="email" type="email" placeholder="erika@example.com"
+                      <input id="email" type="email" placeholder="max.mustermann@example.com"
                         value={email} onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors(prev => ({ ...prev, email: undefined })) }} className="form-input" />
                       {errors.email && <span className="text-xs text-red-400 mt-0.5">{errors.email}</span>}
                     </div>

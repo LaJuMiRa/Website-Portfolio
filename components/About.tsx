@@ -31,29 +31,21 @@ export default function About() {
             <motion.div variants={stagger} className="md:col-span-3 space-y-5 leading-relaxed text-[0.95rem] text-[var(--text-secondary)]">
               {/* ✏️  ABSATZ 1 */}
               <motion.p variants={fadeUpSoft}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                I'm an upcoming Software Developer based in Vienna, who loves building clean, fast applications. My passion is
+                turning complex problems into simple, elegant solutions.
+                I care about the details - in both Code and Design.
               </motion.p>
               {/* ✏️  ABSATZ 2 */}
               <motion.p variants={fadeUpSoft}>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum.
-              </motion.p>
-              {/* ✏️  ABSATZ 3 */}
-              <motion.p variants={fadeUpSoft}>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore
-                veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                Currently focused on improving my skills to become a reliable Full-Stack Developer. Always eager to learn new technologies and take on exciting projects.
               </motion.p>
 
               <motion.div variants={staggerFast} className="grid grid-cols-2 gap-3 pt-4">
                 {[
-                  { label: 'Based in',  value: '[YOUR LOCATION]' },
-                  { label: 'Education', value: '[UNIVERSITY / DEGREE]' },
-                  { label: 'Available', value: '[z.B. "Open to opportunities"]' },
-                  { label: 'Languages', value: '[z.B. "German, English"]' },
+                  { label: 'Based in',  value: 'Vienna' },
+                  { label: 'Education', value: 'FH Wiener Neustadt' },
+                  { label: 'Available', value: 'Open for new projects' },
+                  { label: 'Languages', value: 'German, English, Spanish' },
                 ].map((fact) => (
                   <motion.div key={fact.label} variants={fadeUpSoft} className="card py-3 px-4">
                     <p className="text-teal-400 text-xs font-mono mb-0.5">{fact.label}</p>
@@ -80,7 +72,7 @@ export default function About() {
                   </div>
                   <div>
                     <p className="font-semibold text-lg text-[var(--text-primary)]">Laurenz Rauscher</p>
-                    <p className="text-sm mt-1 text-[var(--text-muted)]">[YOUR TITLE]</p>
+                    <p className="text-sm mt-1 text-[var(--text-muted)]">CS Student</p>
                   </div>
                 </div>
                 <div className="absolute -inset-4 bg-orange-500/5 rounded-3xl blur-2xl -z-10" />
