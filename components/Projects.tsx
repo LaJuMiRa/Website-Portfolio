@@ -27,7 +27,7 @@ const projects: { title: string; description: string; tech: string[]; github: st
 ]
 
 export default function Projects() {
-  const ref = useRef(null)
+  const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const vis = isInView ? 'visible' : 'hidden'
 
@@ -46,8 +46,8 @@ export default function Projects() {
           <motion.p variants={fadeUp} className="section-subtitle">Things I&apos;ve built</motion.p>
 
           <motion.div variants={staggerFast} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {projects.map((project, i) => (
-              <motion.div key={i} variants={fadeUpSoft} className="card group flex flex-col">
+            {projects.map((project) => (
+              <motion.div key={project.title} variants={fadeUpSoft} className="card group flex flex-col">
                 {project.featured && (
                   <span className="flex items-center gap-1 text-[11px] font-mono text-amber-400/80 mb-3">
                     <Star size={10} fill="currentColor" /> Featured Project

@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import { stagger, staggerFast, slideFromLeft, clipReveal, fadeUp, fadeUpSoft, fadeIn } from '@/lib/animations'
 
 export default function About() {
-  const ref = useRef(null)
+  const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   const vis = isInView ? 'visible' : 'hidden'

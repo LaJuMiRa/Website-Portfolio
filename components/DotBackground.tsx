@@ -42,33 +42,35 @@ export default function DotBackground() {
     }
 
     function draw() {
-      const w = window.innerWidth
-      const h = window.innerHeight
-      ctx!.clearRect(0, 0, w, h)
+      if (!document.hidden) {
+        const w = window.innerWidth
+        const h = window.innerHeight
+        ctx!.clearRect(0, 0, w, h)
 
-      const dotColor = themeRef.current === 'dark'
-        ? 'rgba(255,255,255,0.06)'
-        : 'rgba(0,0,0,0.10)'
-      ctx!.fillStyle = dotColor
+        const dotColor = themeRef.current === 'dark'
+          ? 'rgba(255,255,255,0.06)'
+          : 'rgba(0,0,0,0.10)'
+        ctx!.fillStyle = dotColor
 
-      const mx = mouseRef.current.x
-      const my = mouseRef.current.y
+        const mx = mouseRef.current.x
+        const my = mouseRef.current.y
 
-      ctx!.beginPath()
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const x  = c * SPACING
-          const y  = r * SPACING
-          const dx = x - mx
-          const dy = y - my
-          const dist   = Math.sqrt(dx * dx + dy * dy)
-          const factor = Math.pow(Math.max(0, 1 - dist / INFLUENCE), 2)
-          const radius = BASE_R + (MAX_R - BASE_R) * factor
-          ctx!.moveTo(x + radius, y)
-          ctx!.arc(x, y, radius, 0, Math.PI * 2)
+        ctx!.beginPath()
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const x  = c * SPACING
+            const y  = r * SPACING
+            const dx = x - mx
+            const dy = y - my
+            const dist   = Math.sqrt(dx * dx + dy * dy)
+            const factor = Math.pow(Math.max(0, 1 - dist / INFLUENCE), 2)
+            const radius = BASE_R + (MAX_R - BASE_R) * factor
+            ctx!.moveTo(x + radius, y)
+            ctx!.arc(x, y, radius, 0, Math.PI * 2)
+          }
         }
+        ctx!.fill()
       }
-      ctx!.fill()
 
       rafId = requestAnimationFrame(draw)
     }
@@ -81,6 +83,9 @@ export default function DotBackground() {
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(setup, 100)
     }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
 
     setup()
     draw()
@@ -98,6 +103,7 @@ export default function DotBackground() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       style={{
         position: 'fixed',
         inset: 0,

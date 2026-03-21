@@ -37,7 +37,7 @@ const experiences = [
 ]
 
 export default function Experience() {
-  const ref = useRef(null)
+  const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const vis = isInView ? 'visible' : 'hidden'
 
@@ -56,8 +56,8 @@ export default function Experience() {
           <motion.p variants={fadeUp} className="section-subtitle">Where I&apos;ve worked</motion.p>
 
           <motion.div variants={staggerFast} className="space-y-8">
-            {experiences.map((exp, i) => (
-              <motion.div key={i} variants={fadeUpSoft} className="relative pl-10 timeline-item">
+            {experiences.map((exp) => (
+              <motion.div key={exp.role} variants={fadeUpSoft} className="relative pl-10 timeline-item">
                 {/* Timeline dot */}
                 <motion.div
                   className="absolute left-0 top-[22px] w-3.5 h-3.5 rounded-full bg-orange-500 ring-2 ring-orange-500/25"
@@ -88,8 +88,8 @@ export default function Experience() {
                   </div>
 
                   <ul className="space-y-2 mb-5">
-                    {exp.bullets.map((point, j) => (
-                      <li key={j} className="flex gap-2.5 text-sm leading-relaxed text-[var(--text-secondary)]">
+                    {exp.bullets.map((point) => (
+                      <li key={point} className="flex gap-2.5 text-sm leading-relaxed text-[var(--text-secondary)]">
                         <span className="text-orange-500 mt-[5px] shrink-0 text-[7px]">◆</span>
                         {point}
                       </li>

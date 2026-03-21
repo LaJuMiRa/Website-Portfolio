@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, Download } from 'lucide-react'
-import { motion, useScroll, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import ThemeToggle from './ThemeToggle'
 
 const navLinks = [
@@ -18,13 +18,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeHref, setActiveHref] = useState('')
-  const { scrollYProgress } = useScroll()
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const { scrollY, scrollYProgress } = useScroll()
+  useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 20))
 
   // Active section detection
   useEffect(() => {

@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import { stagger, staggerFast, slideFromLeft, clipReveal, fadeUp, fadeUpSoft, fadeIn } from '@/lib/animations'
 
 const technologies: { name: string; level: string; icon: string; color: string; bg: string; border: string }[] = [
-  { name: 'Python', level: 'Primary',  icon: '🐍', color: '#fbbf24', bg: 'rgba(251,191,36,0.08)',  border: 'rgba(251,191,36,0.18)'  },
+  { name: 'Python', level: 'Primary',  icon: 'PY', color: '#fbbf24', bg: 'rgba(251,191,36,0.08)',  border: 'rgba(251,191,36,0.18)'  },
   { name: 'C',      level: 'Primary',  icon: 'C',  color: '#fb923c', bg: 'rgba(251,146,60,0.08)',  border: 'rgba(251,146,60,0.18)'  },
   { name: 'C++',    level: 'Primary',  icon: 'C++',color: '#2dd4bf', bg: 'rgba(45,212,191,0.08)',  border: 'rgba(45,212,191,0.18)'  },
   // ✏️  Weitere einkommentieren:
@@ -24,7 +24,7 @@ const levelColor: Record<string, string> = {
 }
 
 export default function TechStack() {
-  const ref = useRef(null)
+  const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const vis = isInView ? 'visible' : 'hidden'
 

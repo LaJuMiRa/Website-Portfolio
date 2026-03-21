@@ -13,7 +13,7 @@ export default function BackToTop() {
       className="flex flex-col items-start gap-2 group cursor-pointer"
     >
       <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[var(--text-faint)] group-hover:text-orange-500 transition-colors duration-200">
-        Go back
+        Back to top
       </span>
       <motion.div
         animate={reducedMotion ? undefined : { y: [0, -6, 0] }}

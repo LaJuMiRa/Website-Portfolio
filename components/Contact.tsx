@@ -16,7 +16,7 @@ const socialLinks = [
   },
   {
     name: 'LinkedIn', handle: 'Laurenz Rauscher',
-    href: 'www.linkedin.com/in/laurenz-rauscher-299931234',                 // ✏️
+    href: 'https://www.linkedin.com/in/laurenz-rauscher-299931234',                 // ✏️
     icon: Linkedin, hoverBorder: 'hover:border-sky-500/40', hoverText: 'group-hover:text-sky-400',
   },
 ]
@@ -35,14 +35,16 @@ export default function Contact() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     const newErrors: typeof errors = {}
-    if (!name)    newErrors.name    = 'Required'
-    if (!email)   newErrors.email   = 'Required'
-    if (!message) newErrors.message = 'Required'
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!name)                         newErrors.name    = 'Required'
+    if (!email)                        newErrors.email   = 'Required'
+    else if (!emailRegex.test(email))  newErrors.email   = 'Please enter a valid email address'
+    if (!message)                      newErrors.message = 'Required'
     if (Object.keys(newErrors).length) { setErrors(newErrors); return }
     setErrors({})
     const subject = encodeURIComponent(`Portfolio — Message from ${name}`)
     const body    = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
-    window.open(`mailto:${EMAIL}?subject=${subject}&body=${body}`)
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
     setSent(true)
   }
 
