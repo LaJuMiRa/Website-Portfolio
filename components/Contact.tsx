@@ -54,7 +54,7 @@ export default function Contact() {
         <motion.div variants={stagger} initial="hidden" animate={vis}>
 
           <div className="section-header">
-            <motion.span variants={slideFromLeft} className="section-number">05.</motion.span>
+            <motion.span variants={slideFromLeft} className="section-number">04.</motion.span>
             <div className="overflow-hidden">
               <motion.h2 variants={clipReveal} className="section-heading">Get in Touch</motion.h2>
             </div>

@@ -1,79 +1,71 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { stagger, staggerFast, slideFromLeft, clipReveal, fadeUp, fadeUpSoft, fadeIn } from '@/lib/animations'
+import { useState } from 'react'
 
-const technologies: { name: string; level: string; icon: string; color: string; bg: string; border: string }[] = [
-  { name: 'Python', level: 'Primary',  icon: 'PY', color: '#fbbf24', bg: 'rgba(251,191,36,0.08)',  border: 'rgba(251,191,36,0.18)'  },
-  { name: 'C',      level: 'Primary',  icon: 'C',  color: '#fb923c', bg: 'rgba(251,146,60,0.08)',  border: 'rgba(251,146,60,0.18)'  },
-  { name: 'C++',    level: 'Primary',  icon: 'C++',color: '#2dd4bf', bg: 'rgba(45,212,191,0.08)',  border: 'rgba(45,212,191,0.18)'  },
+const technologies = [
+    { name: 'Python',     icon: 'PY',  color: '#087b00' },
+    { name: 'C',         icon: 'C',   color: '#2dd4bf' },
+    { name: 'C++',       icon: 'C++', color: '#fb923c' },
+    { name: 'JavaScript',       icon: 'JS', color: '#fbbf24' },
+    { name: 'PHP',       icon: 'PHP', color: '#777BB4' },
+    { name: 'SQL',       icon: 'SQL', color: '#2c60d1' },
+    { name: 'C#',       icon: 'C#', color: '#512BD4' },
   // ✏️  Weitere einkommentieren:
-  // { name: 'Rust',       level: 'Learning', icon: '🦀', color: '#f97316', bg: 'rgba(249,115,22,0.08)', border: 'rgba(249,115,22,0.18)' },
-  // { name: 'TypeScript', level: 'Learning', icon: 'TS',  color: '#38bdf8', bg: 'rgba(56,189,248,0.08)', border: 'rgba(56,189,248,0.18)' },
-  // { name: 'React',      level: 'Learning', icon: '⚛',  color: '#22d3ee', bg: 'rgba(34,211,238,0.08)', border: 'rgba(34,211,238,0.18)' },
-  // { name: 'Docker',     level: 'Familiar', icon: '🐳', color: '#0ea5e9', bg: 'rgba(14,165,233,0.08)', border: 'rgba(14,165,233,0.18)' },
-  // { name: 'Linux',      level: 'Familiar', icon: '🐧', color: '#a3e635', bg: 'rgba(163,230,53,0.08)', border: 'rgba(163,230,53,0.18)' },
+  // { name: 'Rust',       icon: 'RS', color: '#f97316' },
+  // { name: 'TypeScript', icon: 'TS', color: '#38bdf8' },
+  // { name: 'React',      icon: '⚛',  color: '#22d3ee' },
+  // { name: 'Docker',     icon: '🐳', color: '#0ea5e9' },
+  // { name: 'Linux',      icon: '🐧', color: '#a3e635' },
 ]
 
-const comingSoon = ['Rust', 'TypeScript', 'Docker', 'React', 'Linux']
-const levelColor: Record<string, string> = {
-  Primary: 'dark:text-orange-400 text-orange-500',
-  Learning: 'dark:text-teal-400 text-teal-600',
-  Familiar: 'text-[var(--text-secondary)]',
-}
+// Duplicate 4x for a seamless loop with enough content at all widths
+const items = [...technologies, ...technologies, ...technologies, ...technologies]
+
 
 export default function TechStack() {
-  const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
-  const vis = isInView ? 'visible' : 'hidden'
+  const [paused, setPaused] = useState(false)
 
   return (
-    <section id="skills" ref={ref}>
-      <div className="section-wrapper">
-        <motion.div variants={stagger} initial="hidden" animate={vis}>
+    <section id="skills" className="relative z-10 overflow-hidden border-y border-[var(--border)] py-5 my-4">
+      {/* Fade edges */}
+      <div
+        className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10"
+        style={{ background: 'linear-gradient(to right, var(--bg), transparent)' }}
+      />
+      <div
+        className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10"
+        style={{ background: 'linear-gradient(to left, var(--bg), transparent)' }}
+      />
 
-          <div className="section-header">
-            <motion.span variants={slideFromLeft} className="section-number">02.</motion.span>
-            <div className="overflow-hidden">
-              <motion.h2 variants={clipReveal} className="section-heading">Tech Stack</motion.h2>
-            </div>
-            <motion.div variants={fadeIn} className="section-divider" />
+      <div
+        className="flex gap-12 w-max"
+        style={{
+          animation: 'tech-marquee 22s linear infinite',
+          animationPlayState: paused ? 'paused' : 'running',
+        }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {items.map((tech, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-3 shrink-0 group cursor-default select-none"
+          >
+            <span
+              className="w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold font-mono transition-transform duration-200 group-hover:scale-110"
+              style={{
+                color: tech.color,
+                background: `${tech.color}18`,
+                border: `1px solid ${tech.color}30`,
+              }}
+            >
+              {tech.icon}
+            </span>
+            <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors duration-200">
+              {tech.name}
+            </span>
           </div>
-          <motion.p variants={fadeUp} className="section-subtitle">Technologies I work with</motion.p>
-
-          <motion.div variants={staggerFast} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-14">
-            {technologies.map((tech) => (
-              <motion.div key={tech.name} variants={fadeUpSoft} className="card cursor-default" style={{ borderColor: tech.border }}>
-                <div className="flex flex-col items-start gap-3 py-1">
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center text-base font-bold"
-                    style={{ background: tech.bg, color: tech.color }}>
-                    {tech.icon}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm text-[var(--text-primary)]">{tech.name}</p>
-                    <p className={`text-xs mt-0.5 font-mono ${levelColor[tech.level] ?? 'text-neutral-400'}`}>
-                      {tech.level}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div variants={fadeUp}>
-            <p className="text-xs font-mono mb-3 tracking-wider text-[var(--text-faint)]">
-              // currently exploring &amp; planning to learn
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {comingSoon.map((tech) => (
-                <span key={tech} className="tech-tag opacity-50">{tech}</span>
-              ))}
-              <span className="tech-tag opacity-30 italic">+ more</span>
-            </div>
-          </motion.div>
-
-        </motion.div>
+        ))}
       </div>
     </section>
   )

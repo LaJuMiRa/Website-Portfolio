@@ -1,9 +1,15 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { useState } from 'react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { useRef } from 'react'
-import { Github, ExternalLink, Star } from 'lucide-react'
+import { Github, ExternalLink, Star, ChevronDown, ChevronUp } from 'lucide-react'
 import { stagger, staggerFast, slideFromLeft, clipReveal, fadeUp, fadeUpSoft, fadeIn } from '@/lib/animations'
+
+// ✏️ Auf false setzen wenn echte Projekte vorhanden sind
+const COMING_SOON = true
+
+const PREVIEW_COUNT = 3
 
 const projects: { title: string; description: string; tech: string[]; github: string | null; live: string | null; featured: boolean }[] = [
   {
@@ -26,10 +32,51 @@ const projects: { title: string; description: string; tech: string[]; github: st
   },
 ]
 
+/* ── In Progress Banner ── */
+function InProgressBanner() {
+  return (
+    <motion.div
+      variants={fadeUp}
+      className="flex items-center justify-between gap-4 border border-orange-500/20 rounded-lg px-4 py-2.5 mb-6 bg-orange-500/5"
+    >
+      <div className="flex items-center gap-2.5">
+        <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shrink-0" />
+        <span className="text-sm text-[var(--text-secondary)]">Currently in progress</span>
+      </div>
+      <span className="font-mono text-[11px] text-[var(--text-faint)] shrink-0">// check back soon</span>
+    </motion.div>
+  )
+}
+
+/* ── Ghost Card ── */
+function GhostCard() {
+  return (
+    <motion.div variants={fadeUpSoft} className="card skeleton-shimmer flex flex-col gap-3 min-h-[190px]">
+      {/* Title */}
+      <div className="h-4 w-3/4 rounded bg-black/[0.06] dark:bg-white/[0.06]" />
+      {/* Description */}
+      <div className="flex flex-col gap-2 flex-1">
+        <div className="h-3 w-full rounded bg-black/[0.06] dark:bg-white/[0.06]" />
+        <div className="h-3 w-5/6 rounded bg-black/[0.06] dark:bg-white/[0.06]" />
+        <div className="h-3 w-4/6 rounded bg-black/[0.06] dark:bg-white/[0.06]" />
+      </div>
+      {/* Tech tags */}
+      <div className="flex gap-2 mt-auto pt-1">
+        <div className="h-5 w-14 rounded-full bg-black/[0.06] dark:bg-white/[0.06]" />
+        <div className="h-5 w-10 rounded-full bg-black/[0.06] dark:bg-white/[0.06]" />
+      </div>
+    </motion.div>
+  )
+}
+
 export default function Projects() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const vis = isInView ? 'visible' : 'hidden'
+  const [showAll, setShowAll] = useState(false)
+
+  const displayed = showAll ? projects : projects.slice(0, PREVIEW_COUNT)
+  const hiddenCount = projects.length - PREVIEW_COUNT
 
   return (
     <section id="projects" ref={ref}>
@@ -37,7 +84,7 @@ export default function Projects() {
         <motion.div variants={stagger} initial="hidden" animate={vis}>
 
           <div className="section-header">
-            <motion.span variants={slideFromLeft} className="section-number">04.</motion.span>
+            <motion.span variants={slideFromLeft} className="section-number">03.</motion.span>
             <div className="overflow-hidden">
               <motion.h2 variants={clipReveal} className="section-heading">Projects</motion.h2>
             </div>
@@ -45,40 +92,71 @@ export default function Projects() {
           </div>
           <motion.p variants={fadeUp} className="section-subtitle">Things I&apos;ve built</motion.p>
 
-          <motion.div variants={staggerFast} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {projects.map((project) => (
-              <motion.div key={project.title} variants={fadeUpSoft} className="card group flex flex-col">
-                {project.featured && (
-                  <span className="flex items-center gap-1 text-[11px] font-mono text-amber-400/80 mb-3">
-                    <Star size={10} fill="currentColor" /> Featured Project
-                  </span>
-                )}
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-semibold leading-snug transition-colors pr-2 text-[var(--text-primary)] group-hover:text-orange-500 dark:group-hover:text-orange-400">
-                    {project.title}
-                  </h3>
-                  <div className="flex items-center gap-3 shrink-0 mt-0.5">
-                    {project.github && (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer"
-                        className="transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]" aria-label="GitHub">
-                        <Github size={17} />
-                      </a>
-                    )}
-                    {project.live && (
-                      <a href={project.live} target="_blank" rel="noopener noreferrer"
-                        className="transition-colors text-[var(--text-muted)] hover:text-teal-400" aria-label="Live demo">
-                        <ExternalLink size={17} />
-                      </a>
-                    )}
-                  </div>
-                </div>
-                <p className="text-sm leading-relaxed flex-1 mb-5 text-[var(--text-secondary)]">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {project.tech.map((t) => <span key={t} className="tech-tag">{t}</span>)}
-                </div>
+          {COMING_SOON ? (
+            /* ── Coming Soon: Banner + Ghost Cards ── */
+            <>
+              <InProgressBanner />
+              <motion.div variants={staggerFast} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <GhostCard />
+                <GhostCard />
+                <GhostCard />
               </motion.div>
-            ))}
-          </motion.div>
+            </>
+          ) : (
+            /* ── Real Projects + Expand/Collapse ── */
+            <>
+              <motion.div variants={staggerFast} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {displayed.map((project) => (
+                  <motion.div key={project.title} variants={fadeUpSoft} className="card group flex flex-col">
+                    {project.featured && (
+                      <span className="flex items-center gap-1 text-[11px] font-mono text-amber-400/80 mb-3">
+                        <Star size={10} fill="currentColor" /> Featured Project
+                      </span>
+                    )}
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="font-semibold leading-snug transition-colors pr-2 text-[var(--text-primary)] group-hover:text-orange-500 dark:group-hover:text-orange-400">
+                        {project.title}
+                      </h3>
+                      <div className="flex items-center gap-3 shrink-0 mt-0.5">
+                        {project.github && (
+                          <a href={project.github} target="_blank" rel="noopener noreferrer"
+                            className="transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]" aria-label="GitHub">
+                            <Github size={17} />
+                          </a>
+                        )}
+                        {project.live && (
+                          <a href={project.live} target="_blank" rel="noopener noreferrer"
+                            className="transition-colors text-[var(--text-muted)] hover:text-teal-400" aria-label="Live demo">
+                            <ExternalLink size={17} />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    <p className="text-sm leading-relaxed flex-1 mb-5 text-[var(--text-secondary)]">{project.description}</p>
+                    <div className="flex flex-wrap gap-2 mt-auto">
+                      {project.tech.map((t) => <span key={t} className="tech-tag">{t}</span>)}
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              <AnimatePresence>
+                {hiddenCount > 0 && (
+                  <motion.div variants={fadeUp} className="flex justify-center mt-8">
+                    <button
+                      onClick={() => setShowAll(v => !v)}
+                      className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-orange-400 transition-colors duration-200 border border-[var(--border)] hover:border-orange-500/40 px-5 py-2.5 rounded-full"
+                    >
+                      {showAll
+                        ? <><ChevronUp size={15} /> Show less</>
+                        : <><ChevronDown size={15} /> Show {hiddenCount} more project{hiddenCount !== 1 ? 's' : ''}</>
+                      }
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </>
+          )}
 
         </motion.div>
       </div>
