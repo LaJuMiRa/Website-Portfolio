@@ -80,17 +80,17 @@ type TerminalLine =
   | { type: 'skill'; name: string; level: number; label: string; color: string; delay: number }
 
 const terminalLines: TerminalLine[] = [
-  { type: 'blank',                                                                      delay: 1700 },
-  { type: 'cmd',   text: '$ skills --list',                                             delay: 2150 },
-  { type: 'blank',                                                                      delay: 2600 },
-  { type: 'skill', name: 'C',           level: 10, label: 'Primary',  color: '#2dd4bf', delay: 3050 },
-  { type: 'skill', name: 'C++',         level: 9,  label: 'Primary',  color: '#fb923c', delay: 3500 },
-  { type: 'skill', name: 'SQL',         level: 8,  label: 'Primary',  color: '#2c60d1', delay: 3950 },
-  { type: 'skill', name: 'Python',      level: 7,  label: 'Familiar', color: '#087b00', delay: 4400 },
-  { type: 'skill', name: 'JavaScript',  level: 5,  label: 'Familiar', color: '#fbbf24', delay: 4850 },
-  { type: 'skill', name: 'PHP',         level: 5,  label: 'Familiar', color: '#777BB4', delay: 5300 },
-  { type: 'skill', name: 'C#',          level: 2,  label: 'Familiar', color: '#512BD4', delay: 5750 },
-  { type: 'blank',                                                                      delay: 6200 },
+  { type: 'blank',                                                                      delay: 1250 },
+  { type: 'cmd',   text: '$ skills --list',                                             delay: 1700 },
+  { type: 'blank',                                                                      delay: 2150 },
+  { type: 'skill', name: 'C',           level: 10, label: 'Primary',  color: '#2dd4bf', delay: 2600 },
+  { type: 'skill', name: 'C++',         level: 9,  label: 'Primary',  color: '#fb923c', delay: 3050 },
+  { type: 'skill', name: 'SQL',         level: 8,  label: 'Primary',  color: '#2c60d1', delay: 3500 },
+  { type: 'skill', name: 'Python',      level: 7,  label: 'Familiar', color: '#087b00', delay: 3950 },
+  { type: 'skill', name: 'JavaScript',  level: 5,  label: 'Familiar', color: '#fbbf24', delay: 4400 },
+  { type: 'skill', name: 'PHP',         level: 5,  label: 'Familiar', color: '#777BB4', delay: 4850 },
+  { type: 'skill', name: 'C#',          level: 2,  label: 'Familiar', color: '#512BD4', delay: 5300 },
+  { type: 'blank',                                                                      delay: 5750 },
 ]
 
 function bar(level: number, total = 10) {
