@@ -39,7 +39,7 @@ const projects: {
     description:
       "A Safari extension that tracks your browsing and turns it into a beautiful, animated recap. Top sites, time spent, recurring themes — all computed on your device.",
     tech: ["JavaScript", "React", "JSX"],
-    github: "#",
+    github: "https://github.com/LaJuMiRa/safari-wrapped",
     live: null,
     featured: true,
   },
@@ -159,7 +159,8 @@ export default function Projects() {
                   >
                     {project.featured && (
                       <span className="flex items-center gap-1 text-[11px] font-mono text-amber-400/80 mb-3">
-                        <Star size={10} fill="currentColor" /> {t.projects.featured}
+                        <Star size={10} fill="currentColor" />{" "}
+                        {t.projects.featured}
                       </span>
                     )}
                     <div className="flex items-start justify-between mb-3">
@@ -192,7 +193,8 @@ export default function Projects() {
                       </div>
                     </div>
                     <p className="text-sm leading-relaxed flex-1 mb-5 text-[var(--text-secondary)]">
-                      {t.projects.descriptions[project.title] ?? project.description}
+                      {t.projects.descriptions[project.title] ??
+                        project.description}
                     </p>
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {project.tech.map((t) => (
