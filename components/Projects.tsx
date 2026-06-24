@@ -43,6 +43,15 @@ const projects: {
     live: null,
     featured: true,
   },
+  {
+    title: "Dispatcher",
+    description:
+      "A systems programming demo in C implementing a parent-child process architecture for distributed task processing. Workers communicate via POSIX message queues with configurable pool sizes, bounded task queues, and graceful shutdown.",
+    tech: ["C", "POSIX", "IPC", "Linux"],
+    github: "https://github.com/LaJuMiRa/dispatcher",
+    live: null,
+    featured: false,
+  },
 ];
 
 /* ── In Progress Banner ── */
