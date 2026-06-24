@@ -39,6 +39,12 @@ Thumbs.db
 
 
 # Folders #
+###########
 .idea/
 node_modules/
 .next/
+.claude/
+
+# MylocalShit #
+###############
+

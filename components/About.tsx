@@ -3,8 +3,10 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { stagger, staggerFast, slideFromLeft, clipReveal, fadeUp, fadeUpSoft, fadeIn } from '@/lib/animations'
+import { useLanguage } from './LanguageProvider'
 
 export default function About() {
+  const { t } = useLanguage()
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -19,33 +21,25 @@ export default function About() {
           <div className="section-header">
             <motion.span variants={slideFromLeft} className="section-number">01.</motion.span>
             <div className="overflow-hidden">
-              <motion.h2 variants={clipReveal} className="section-heading">About Me</motion.h2>
+              <motion.h2 variants={clipReveal} className="section-heading">{t.about.sectionHeading}</motion.h2>
             </div>
             <motion.div variants={fadeIn} className="section-divider" />
           </div>
-          <motion.p variants={fadeUp} className="section-subtitle">Get to know me</motion.p>
+          <motion.p variants={fadeUp} className="section-subtitle">{t.about.subtitle}</motion.p>
 
           <div className="grid md:grid-cols-5 gap-14 items-start">
 
             {/* ── Text ── */}
             <motion.div variants={stagger} className="md:col-span-3 space-y-5 leading-relaxed text-[0.95rem] text-[var(--text-secondary)]">
-              {/* ✏️  ABSATZ 1 */}
-              <motion.p variants={fadeUpSoft}>
-                I'm an upcoming Software Developer based in Vienna, who loves building clean, fast applications. My passion is
-                turning complex problems into simple, elegant solutions.
-                I care about the details - in both Code and Design.
-              </motion.p>
-              {/* ✏️  ABSATZ 2 */}
-              <motion.p variants={fadeUpSoft}>
-                Currently focused on improving my skills to become a reliable Full-Stack Developer. Always eager to learn new technologies and take on exciting projects.
-              </motion.p>
+              <motion.p variants={fadeUpSoft}>{t.about.bio1}</motion.p>
+              <motion.p variants={fadeUpSoft}>{t.about.bio2}</motion.p>
 
               <motion.div variants={staggerFast} className="grid grid-cols-2 gap-3 pt-4">
                 {[
-                  { label: 'Based in',  value: 'Vienna' },
-                  { label: 'Education', value: 'FH Wiener Neustadt' },
-                  { label: 'Available', value: 'Open for new projects' },
-                  { label: 'Languages', value: 'German, English, Spanish' },
+                  { label: t.about.facts.basedIn,   value: t.about.factValues.basedIn },
+                  { label: t.about.facts.education,  value: t.about.factValues.education },
+                  { label: t.about.facts.available,  value: t.about.factValues.available },
+                  { label: t.about.facts.languages,  value: t.about.factValues.languages },
                 ].map((fact) => (
                   <motion.div key={fact.label} variants={fadeUpSoft} className="card py-3 px-4">
                     <p className="text-teal-400 text-xs font-mono mb-0.5">{fact.label}</p>

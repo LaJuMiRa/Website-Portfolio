@@ -1,0 +1,103 @@
+export const en = {
+  nav: {
+    about: 'About',
+    experience: 'Experience',
+    projects: 'Projects',
+    contact: 'Contact',
+    resume: 'Resume',
+    downloadResume: 'Download Resume',
+    cvFile: '/Resume_Rauscher.pdf',
+  },
+  hero: {
+    greeting: "Hello, I'm",
+    title: 'CS Student @ FH Wiener Neustadt',
+    tagline: 'Still learning. Already building.',
+    downloadResume: 'Download Resume',
+    getInTouch: 'Get in Touch',
+    scroll: 'Scroll',
+  },
+  about: {
+    sectionHeading: 'About Me',
+    subtitle: 'Get to know me',
+    bio1: "I'm an upcoming Software Developer based in Vienna, who loves building clean, fast applications. My passion is turning complex problems into simple, elegant solutions. I care about the details — in both Code and Design.",
+    bio2: 'Currently focused on improving my skills to become a reliable Full-Stack Developer. Always eager to learn new technologies and take on exciting projects.',
+    facts: {
+      basedIn: 'Based in',
+      education: 'Education',
+      available: 'Available',
+      languages: 'Languages',
+    },
+    factValues: {
+      basedIn: 'Vienna',
+      education: 'FH Wiener Neustadt',
+      available: 'Open for new projects',
+      languages: 'German, English, Spanish',
+    },
+  },
+  experience: {
+    sectionHeading: 'Experience',
+    subtitle: "Where I've worked",
+    items: [
+      {
+        role: 'Marketing Intern',
+        company: 'Gurkerl.at',
+        location: 'Vienna, Austria',
+        period: 'Jul 2023 – Jan 2025',
+        type: 'Full-Time / Part-time / Hybrid',
+        bullets: [
+          'Building and adapting websites for certain campaigns',
+          'Social Media communication and content creation',
+          'Campaign creation and management',
+        ],
+        tech: ['UI/UX', 'Social Media', 'Advertising'],
+      },
+      {
+        role: 'Soccer Coach',
+        company: 'ASK Oberwaltersdorf',
+        location: 'Oberwaltersdorf',
+        period: 'Jul 2023 – Present',
+        type: 'Volunteer',
+        bullets: [
+          'Coaching youth soccer team (currently U16) with a focus on skill development, teamwork, and sportsmanship',
+          'Organizing and leading regular training sessions and creating practice plans',
+          'Collaborating with parents and club management to ensure a positive and supportive environment for the players',
+        ],
+        tech: ['Coaching', 'Teamwork', 'Communication'],
+      },
+    ],
+  },
+  projects: {
+    sectionHeading: 'Projects',
+    subtitle: "Things I've built",
+    inProgress: 'More are coming soon',
+    checkBack: '// check back soon',
+    featured: 'Featured Project',
+    showLess: 'Show less',
+    showMore: 'Show more projects',
+    descriptions: {
+      'Browsing-Wrapped':
+        'A Safari extension that tracks your browsing and turns it into a beautiful, animated recap. Top sites, time spent, recurring themes — all computed on your device.',
+    } as Record<string, string>,
+  },
+  contact: {
+    sectionHeading: 'Get in Touch',
+    subtitle: 'Have a question or want to work together?',
+    intro: "I'm currently open to new opportunities. Whether you have a project in mind, a role that might be a good fit, or just want to connect — feel free to reach out.",
+    nameLabel: 'Name *',
+    emailLabel: 'Email *',
+    messageLabel: 'Message *',
+    namePlaceholder: 'Max Mustermann',
+    emailPlaceholder: 'max.mustermann@example.com',
+    messagePlaceholder: "Hi Laurenz, I'd love to talk about...",
+    sendButton: 'Send Message',
+    successTitle: 'Message opened!',
+    successBody: "Your default mail client opened with the message pre-filled. Just hit send and I'll get back to you soon.",
+    sendAnother: 'Send another message →',
+    findOnline: 'Find me online',
+    directContact: 'Or reach me directly',
+    errorRequired: 'Required',
+    errorEmail: 'Please enter a valid email address',
+  },
+}
+
+export type Translations = typeof en

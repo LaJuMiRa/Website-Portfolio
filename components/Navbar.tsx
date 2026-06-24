@@ -5,25 +5,27 @@ import Link from 'next/link'
 import { Menu, X, Download } from 'lucide-react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import ThemeToggle from './ThemeToggle'
-
-const navLinks = [
-  { href: '#about',      label: 'About' },
-  //{ href: '#skills',     label: 'Skills' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#projects',   label: 'Projects' },
-  { href: '#contact',    label: 'Contact' },
-]
+import LanguageToggle from './LanguageToggle'
+import { useLanguage } from './LanguageProvider'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeHref, setActiveHref] = useState('')
   const { scrollY, scrollYProgress } = useScroll()
+  const { t } = useLanguage()
   useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 20))
+
+  const navLinks = [
+    { href: '#about',      label: t.nav.about },
+    { href: '#experience', label: t.nav.experience },
+    { href: '#projects',   label: t.nav.projects },
+    { href: '#contact',    label: t.nav.contact },
+  ]
 
   // Active section detection
   useEffect(() => {
-    const ids = navLinks.map(l => l.href.slice(1))
+    const ids = ['about', 'experience', 'projects', 'contact']
     const observers: IntersectionObserver[] = []
 
     ids.forEach(id => {
@@ -79,14 +81,15 @@ export default function Navbar() {
               </Link>
             )
           })}
+          <LanguageToggle />
           <ThemeToggle />
           <a
-            href="/Lebenslauf_Rauscher.pdf"
+            href={t.nav.cvFile}
             download
             className="flex items-center gap-1.5 text-sm px-4 py-2 border border-orange-500/40 text-orange-400 hover:bg-orange-500/10 rounded-full transition-all duration-300 font-medium"
           >
             <Download size={14} />
-            Resume
+            {t.nav.resume}
           </a>
         </div>
 
@@ -131,14 +134,15 @@ export default function Navbar() {
               )
             })}
             <div className="flex items-center gap-3 pt-1">
+              <LanguageToggle />
               <ThemeToggle />
               <a
-                href="/Lebenslauf_Rauscher.pdf"
+                href={t.nav.cvFile}
                 download
                 className="text-orange-400 text-sm font-medium py-1 flex items-center gap-2"
               >
                 <Download size={14} />
-                Download Resume
+                {t.nav.downloadResume}
               </a>
             </div>
           </motion.div>

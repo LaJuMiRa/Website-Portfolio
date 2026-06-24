@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { ArrowDown, Download, Mail } from 'lucide-react'
 import Link from 'next/link'
 import { stagger, fadeUp, fadeIn, lnEase } from '@/lib/animations'
+import { useLanguage } from './LanguageProvider'
 
 /* ── Looping typewriter ── */
 function TypeWriter({ text, delay = 0 }: { text: string; delay?: number }) {
@@ -159,6 +160,7 @@ function Terminal() {
 
 /* ── Hero ── */
 export default function Hero() {
+  const { t } = useLanguage()
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
 
@@ -200,7 +202,7 @@ export default function Hero() {
               variants={fadeIn}
               className="font-mono text-teal-400 text-sm tracking-[0.22em] uppercase mb-6 h-5"
             >
-              <TypeWriter text="Hello, I'm" delay={350} />
+              <TypeWriter text={t.hero.greeting} delay={350} />
             </motion.p>
 
             {/* Name */}
@@ -237,7 +239,7 @@ export default function Hero() {
               variants={fadeUp}
               className="text-xl md:text-2xl font-light mb-4 text-[var(--text-secondary)]"
             >
-              CS Student @ FH Wiener Neustadt
+              {t.hero.title}
             </motion.p>
 
             {/* ✏️  Deine Tagline */}
@@ -245,18 +247,18 @@ export default function Hero() {
               variants={fadeUp}
               className="max-w-xl mb-12 text-base md:text-lg leading-relaxed text-[var(--text-muted)]"
             >
-              Still learning. Already building
+              {t.hero.tagline}
             </motion.p>
 
             {/* CTAs */}
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-              <a href="/Lebenslauf_Rauscher.pdf" download className="btn-primary">
+              <a href={t.nav.cvFile} download className="btn-primary">
                 <Download size={17} />
-                Download Resume
+                {t.hero.downloadResume}
               </a>
               <Link href="#contact" className="btn-secondary">
                 <Mail size={17} />
-                Get in Touch
+                {t.hero.getInTouch}
               </Link>
             </motion.div>
           </div>
@@ -275,7 +277,7 @@ export default function Hero() {
         animate="visible"
         transition={{ delay: 1.8 }}
       >
-        <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[var(--text-faint)]">Scroll</span>
+        <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[var(--text-faint)]">{t.hero.scroll}</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}

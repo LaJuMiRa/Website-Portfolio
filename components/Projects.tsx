@@ -1,39 +1,58 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { useRef } from 'react'
-import { Github, ExternalLink, Star, ChevronDown, ChevronUp } from 'lucide-react'
-import { stagger, staggerFast, slideFromLeft, clipReveal, fadeUp, fadeUpSoft, fadeIn } from '@/lib/animations'
+import { useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import {
+  Github,
+  ExternalLink,
+  Star,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
+import {
+  stagger,
+  staggerFast,
+  slideFromLeft,
+  clipReveal,
+  fadeUp,
+  fadeUpSoft,
+  fadeIn,
+} from "@/lib/animations";
+import { useLanguage } from "./LanguageProvider";
 
 // ✏️ Auf false setzen wenn echte Projekte vorhanden sind
-const COMING_SOON = true
+const COMING_SOON = false;
 
-const PREVIEW_COUNT = 3
+const PREVIEW_COUNT = 3;
 
-const projects: { title: string; description: string; tech: string[]; github: string | null; live: string | null; featured: boolean }[] = [
+const projects: {
+  title: string;
+  description: string;
+  tech: string[];
+  github: string | null;
+  live: string | null;
+  featured: boolean;
+}[] = [
   {
-    title:       '[PROJEKT NAME 1]',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.',
-    tech:        ['Python', '[TECH 2]', '[TECH 3]'],
-    github:      '#', live: null, featured: true,
+    title: "Browsing-Wrapped",
+    description:
+      "A Safari extension that tracks your browsing and turns it into a beautiful, animated recap. Top sites, time spent, recurring themes — all computed on your device.",
+    tech: ["JavaScript", "React", "JSX"],
+    github: "#",
+    live: null,
+    featured: true,
   },
-  {
-    title:       '[PROJEKT NAME 2]',
-    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident deserunt mollit.',
-    tech:        ['C++', '[TECH 2]', '[TECH 3]'],
-    github:      '#', live: '#', featured: true,
-  },
-  {
-    title:       '[PROJEKT NAME 3]',
-    description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore.',
-    tech:        ['C', '[TECH 2]'],
-    github:      '#', live: null, featured: false,
-  },
-]
+];
 
 /* ── In Progress Banner ── */
-function InProgressBanner() {
+function InProgressBanner({
+  inProgress,
+  checkBack,
+}: {
+  inProgress: string;
+  checkBack: string;
+}) {
   return (
     <motion.div
       variants={fadeUp}
@@ -41,17 +60,24 @@ function InProgressBanner() {
     >
       <div className="flex items-center gap-2.5">
         <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shrink-0" />
-        <span className="text-sm text-[var(--text-secondary)]">Currently in progress</span>
+        <span className="text-sm text-[var(--text-secondary)]">
+          {inProgress}
+        </span>
       </div>
-      <span className="font-mono text-[11px] text-[var(--text-faint)] shrink-0">// check back soon</span>
+      <span className="font-mono text-[11px] text-[var(--text-faint)] shrink-0">
+        {checkBack}
+      </span>
     </motion.div>
-  )
+  );
 }
 
 /* ── Ghost Card ── */
 function GhostCard() {
   return (
-    <motion.div variants={fadeUpSoft} className="card skeleton-shimmer flex flex-col gap-3 min-h-[190px]">
+    <motion.div
+      variants={fadeUpSoft}
+      className="card skeleton-shimmer flex flex-col gap-3 min-h-[190px]"
+    >
       {/* Title */}
       <div className="h-4 w-3/4 rounded bg-black/[0.06] dark:bg-white/[0.06]" />
       {/* Description */}
@@ -66,37 +92,49 @@ function GhostCard() {
         <div className="h-5 w-10 rounded-full bg-black/[0.06] dark:bg-white/[0.06]" />
       </div>
     </motion.div>
-  )
+  );
 }
 
 export default function Projects() {
-  const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
-  const vis = isInView ? 'visible' : 'hidden'
-  const [showAll, setShowAll] = useState(false)
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const vis = isInView ? "visible" : "hidden";
+  const [showAll, setShowAll] = useState(false);
+  const { t } = useLanguage();
 
-  const displayed = showAll ? projects : projects.slice(0, PREVIEW_COUNT)
-  const hiddenCount = projects.length - PREVIEW_COUNT
+  const displayed = showAll ? projects : projects.slice(0, PREVIEW_COUNT);
+  const hiddenCount = projects.length - PREVIEW_COUNT;
 
   return (
     <section id="projects" ref={ref}>
       <div className="section-wrapper">
         <motion.div variants={stagger} initial="hidden" animate={vis}>
-
           <div className="section-header">
-            <motion.span variants={slideFromLeft} className="section-number">03.</motion.span>
+            <motion.span variants={slideFromLeft} className="section-number">
+              03.
+            </motion.span>
             <div className="overflow-hidden">
-              <motion.h2 variants={clipReveal} className="section-heading">Projects</motion.h2>
+              <motion.h2 variants={clipReveal} className="section-heading">
+                {t.projects.sectionHeading}
+              </motion.h2>
             </div>
             <motion.div variants={fadeIn} className="section-divider" />
           </div>
-          <motion.p variants={fadeUp} className="section-subtitle">Things I&apos;ve built</motion.p>
+          <motion.p variants={fadeUp} className="section-subtitle">
+            {t.projects.subtitle}
+          </motion.p>
 
           {COMING_SOON ? (
             /* ── Coming Soon: Banner + Ghost Cards ── */
             <>
-              <InProgressBanner />
-              <motion.div variants={staggerFast} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+              <InProgressBanner
+                inProgress={t.projects.inProgress}
+                checkBack={t.projects.checkBack}
+              />
+              <motion.div
+                variants={staggerFast}
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+              >
                 <GhostCard />
                 <GhostCard />
                 <GhostCard />
@@ -105,12 +143,23 @@ export default function Projects() {
           ) : (
             /* ── Real Projects + Expand/Collapse ── */
             <>
-              <motion.div variants={staggerFast} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+              <InProgressBanner
+                inProgress={t.projects.inProgress}
+                checkBack={t.projects.checkBack}
+              />
+              <motion.div
+                variants={staggerFast}
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+              >
                 {displayed.map((project) => (
-                  <motion.div key={project.title} variants={fadeUpSoft} className="card group flex flex-col">
+                  <motion.div
+                    key={project.title}
+                    variants={fadeUpSoft}
+                    className="card group flex flex-col"
+                  >
                     {project.featured && (
                       <span className="flex items-center gap-1 text-[11px] font-mono text-amber-400/80 mb-3">
-                        <Star size={10} fill="currentColor" /> Featured Project
+                        <Star size={10} fill="currentColor" /> {t.projects.featured}
                       </span>
                     )}
                     <div className="flex items-start justify-between mb-3">
@@ -119,22 +168,38 @@ export default function Projects() {
                       </h3>
                       <div className="flex items-center gap-3 shrink-0 mt-0.5">
                         {project.github && (
-                          <a href={project.github} target="_blank" rel="noopener noreferrer"
-                            className="transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]" aria-label="GitHub">
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                            aria-label="GitHub"
+                          >
                             <Github size={17} />
                           </a>
                         )}
                         {project.live && (
-                          <a href={project.live} target="_blank" rel="noopener noreferrer"
-                            className="transition-colors text-[var(--text-muted)] hover:text-teal-400" aria-label="Live demo">
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="transition-colors text-[var(--text-muted)] hover:text-teal-400"
+                            aria-label="Live demo"
+                          >
                             <ExternalLink size={17} />
                           </a>
                         )}
                       </div>
                     </div>
-                    <p className="text-sm leading-relaxed flex-1 mb-5 text-[var(--text-secondary)]">{project.description}</p>
+                    <p className="text-sm leading-relaxed flex-1 mb-5 text-[var(--text-secondary)]">
+                      {t.projects.descriptions[project.title] ?? project.description}
+                    </p>
                     <div className="flex flex-wrap gap-2 mt-auto">
-                      {project.tech.map((t) => <span key={t} className="tech-tag">{t}</span>)}
+                      {project.tech.map((t) => (
+                        <span key={t} className="tech-tag">
+                          {t}
+                        </span>
+                      ))}
                     </div>
                   </motion.div>
                 ))}
@@ -142,24 +207,31 @@ export default function Projects() {
 
               <AnimatePresence>
                 {hiddenCount > 0 && (
-                  <motion.div variants={fadeUp} className="flex justify-center mt-8">
+                  <motion.div
+                    variants={fadeUp}
+                    className="flex justify-center mt-8"
+                  >
                     <button
-                      onClick={() => setShowAll(v => !v)}
+                      onClick={() => setShowAll((v) => !v)}
                       className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-orange-400 transition-colors duration-200 border border-[var(--border)] hover:border-orange-500/40 px-5 py-2.5 rounded-full"
                     >
-                      {showAll
-                        ? <><ChevronUp size={15} /> Show less</>
-                        : <><ChevronDown size={15} /> Show {hiddenCount} more project{hiddenCount !== 1 ? 's' : ''}</>
-                      }
+                      {showAll ? (
+                        <>
+                          <ChevronUp size={15} /> {t.projects.showLess}
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown size={15} /> {t.projects.showMore}
+                        </>
+                      )}
                     </button>
                   </motion.div>
                 )}
               </AnimatePresence>
             </>
           )}
-
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

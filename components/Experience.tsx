@@ -4,42 +4,12 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { MapPin, Calendar, Briefcase } from 'lucide-react'
 import { stagger, staggerFast, slideFromLeft, clipReveal, fadeUp, fadeUpSoft, fadeIn } from '@/lib/animations'
+import { useLanguage } from './LanguageProvider'
+import type { Translations } from '@/lib/translations'
 
-/* ─────────────────────────────────────────────────────────────
- * ✏️  BERUFSERFAHRUNG — neueste Station zuerst
- * ───────────────────────────────────────────────────────────── */
-const experiences = [
-  {
-    role:     'Marketing Intern',
-    company:  'Gurkerl.at',
-    location: 'Vienna, Austria',
-    period:   'Jul 2023 – Jan 2025',
-    type:     'Full-Time / Part-time / Hybrid',
-    bullets: [
-      'Building and adapting websites for certain campaigns',
-      'Social Media communication and content creation',
-      'Campaign creation and management',
-    ],
-    tech: ['UI/UX', 'Social Media', 'Advertising'],
-  },
-  {
-    role:     'Soccer Coach',
-    company:  'ASK Oberwaltersdorf',
-    location: 'Oberwaltersdorf',
-    period:   'Jul 2023 - Present',
-    type:     'Volunteer',
-    bullets: [
-      'Coaching youth soccer team (currently U16) with a focus on skill development, teamwork, and sportsmanship',
-      'Organizing and leading regular training sessions and creating practice plans',
-      'Collaborating with parents and club management to ensure a positive and supportive environment for the players',
-    ],
-    tech: ['Coaching', 'Teamwork', 'Communication'],
-  },
-]
+type ExperienceItem = Translations['experience']['items'][number]
 
-type Experience = typeof experiences[number]
-
-function ExperienceCard({ exp }: { exp: Experience }) {
+function ExperienceCard({ exp }: { exp: ExperienceItem }) {
   return (
     <div className="card">
       <div className="mb-4">
@@ -74,7 +44,7 @@ function ExperienceCard({ exp }: { exp: Experience }) {
       </ul>
 
       <div className="flex flex-wrap gap-2">
-        {exp.tech.map((t) => <span key={t} className="tech-tag">{t}</span>)}
+        {exp.tech.map((tech) => <span key={tech} className="tech-tag">{tech}</span>)}
       </div>
     </div>
   )
@@ -84,6 +54,7 @@ export default function Experience() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const vis = isInView ? 'visible' : 'hidden'
+  const { t } = useLanguage()
 
   return (
     <section id="experience" ref={ref}>
@@ -93,11 +64,11 @@ export default function Experience() {
           <div className="section-header">
             <motion.span variants={slideFromLeft} className="section-number">02.</motion.span>
             <div className="overflow-hidden">
-              <motion.h2 variants={clipReveal} className="section-heading">Experience</motion.h2>
+              <motion.h2 variants={clipReveal} className="section-heading">{t.experience.sectionHeading}</motion.h2>
             </div>
             <motion.div variants={fadeIn} className="section-divider" />
           </div>
-          <motion.p variants={fadeUp} className="section-subtitle">Where I&apos;ve worked</motion.p>
+          <motion.p variants={fadeUp} className="section-subtitle">{t.experience.subtitle}</motion.p>
 
           <motion.div variants={staggerFast} className="relative">
 
@@ -105,7 +76,7 @@ export default function Experience() {
             <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-[var(--border)] hidden md:block" />
 
             <div className="space-y-8 md:space-y-12">
-              {experiences.map((exp, i) => {
+              {t.experience.items.map((exp, i) => {
                 const isRight = i % 2 !== 0
 
                 return (

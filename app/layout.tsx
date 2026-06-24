@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import ThemeProvider from '@/components/ThemeProvider'
+import LanguageProvider from '@/components/LanguageProvider'
 import DotBackground from '@/components/DotBackground'
 
 const inter = Inter({
@@ -54,8 +55,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased font-sans">
         <ThemeProvider>
-          <DotBackground />
-          {children}
+          <LanguageProvider>
+            <DotBackground />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
         <SpeedInsights />
         <Analytics />
