@@ -79,6 +79,8 @@ export const en = {
         'A Safari extension that tracks your browsing and turns it into a beautiful, animated recap. Top sites, time spent, recurring themes — all computed on your device.',
       'Dispatcher':
         'A systems programming demo in C implementing a parent-child process architecture for distributed task processing. Workers communicate via POSIX message queues with configurable pool sizes, bounded task queues, and graceful shutdown.',
+      'Dungeon-Crawler':
+        'A turn-based roguelike for the terminal: race an AI rival through a procedurally generated dungeon, then face it in the arena.',
     } as Record<string, string>,
   },
   contact: {

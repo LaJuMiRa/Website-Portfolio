@@ -15,7 +15,7 @@ function ExperienceCard({ exp }: { exp: ExperienceItem }) {
       <div className="mb-4">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
-            <h3 className="font-semibold text-lg leading-snug text-[var(--text-primary)]">{exp.role}</h3>
+            <h3 className="font-semibold text-lg leading-snug text-(--text-primary)">{exp.role}</h3>
             <p className="text-orange-400 font-medium text-sm flex items-center gap-1.5 mt-0.5">
               <Briefcase size={12} />{exp.company}
             </p>
@@ -25,10 +25,10 @@ function ExperienceCard({ exp }: { exp: ExperienceItem }) {
           </span>
         </div>
         <div className="flex items-center justify-between flex-wrap mt-2">
-          <span className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-muted)]">
+          <span className="flex items-center gap-1.5 text-xs font-mono text-(--text-muted)">
             <MapPin size={11} />{exp.location}
           </span>
-          <span className="flex items-center gap-1.5 text-xs font-mono text-[var(--text-muted)]">
+          <span className="flex items-center gap-1.5 text-xs font-mono text-(--text-muted)">
             <Calendar size={11} />{exp.period}
           </span>
         </div>
@@ -36,7 +36,7 @@ function ExperienceCard({ exp }: { exp: ExperienceItem }) {
 
       <ul className="space-y-2 mb-5">
         {exp.bullets.map((point) => (
-          <li key={point} className="flex gap-2.5 text-sm leading-relaxed text-[var(--text-secondary)]">
+          <li key={point} className="flex gap-2.5 text-sm leading-relaxed text-(--text-secondary)">
             <span className="text-orange-500 mt-[5px] shrink-0 text-[7px]">◆</span>
             {point}
           </li>
@@ -73,7 +73,7 @@ export default function Experience() {
           <motion.div variants={staggerFast} className="relative">
 
             {/* Vertical center line — desktop only */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-[var(--border)] hidden md:block" />
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-(--border) hidden md:block" />
 
             <div className="space-y-8 md:space-y-12">
               {t.experience.items.map((exp, i) => {

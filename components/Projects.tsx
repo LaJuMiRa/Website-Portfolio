@@ -35,13 +35,22 @@ const projects: {
   featured: boolean;
 }[] = [
   {
+    title: "Dungeon-Crawler",
+    description:
+      "A turn-based roguelike for the terminal: race an AI rival through a procedurally generated dungeon, then face it in the arena.",
+    tech: ["Python"],
+    github: "https://github.com/LaJuMiRa/dungen-crawler",
+    live: null,
+    featured: true,
+  },
+  {
     title: "Browsing-Wrapped",
     description:
       "A Safari extension that tracks your browsing and turns it into a beautiful, animated recap. Top sites, time spent, recurring themes — all computed on your device.",
     tech: ["JavaScript", "React", "JSX"],
     github: "https://github.com/LaJuMiRa/safari-wrapped",
     live: null,
-    featured: true,
+    featured: false,
   },
   {
     title: "Dispatcher",
@@ -69,11 +78,11 @@ function InProgressBanner({
     >
       <div className="flex items-center gap-2.5">
         <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shrink-0" />
-        <span className="text-sm text-[var(--text-secondary)]">
+        <span className="text-sm text-(--text-secondary)">
           {inProgress}
         </span>
       </div>
-      <span className="font-mono text-[11px] text-[var(--text-faint)] shrink-0">
+      <span className="font-mono text-[11px] text-(--text-faint) shrink-0">
         {checkBack}
       </span>
     </motion.div>
@@ -88,17 +97,17 @@ function GhostCard() {
       className="card skeleton-shimmer flex flex-col gap-3 min-h-[190px]"
     >
       {/* Title */}
-      <div className="h-4 w-3/4 rounded bg-black/[0.06] dark:bg-white/[0.06]" />
+      <div className="h-4 w-3/4 rounded-sm bg-black/6 dark:bg-white/6" />
       {/* Description */}
       <div className="flex flex-col gap-2 flex-1">
-        <div className="h-3 w-full rounded bg-black/[0.06] dark:bg-white/[0.06]" />
-        <div className="h-3 w-5/6 rounded bg-black/[0.06] dark:bg-white/[0.06]" />
-        <div className="h-3 w-4/6 rounded bg-black/[0.06] dark:bg-white/[0.06]" />
+        <div className="h-3 w-full rounded-sm bg-black/6 dark:bg-white/6" />
+        <div className="h-3 w-5/6 rounded-sm bg-black/6 dark:bg-white/6" />
+        <div className="h-3 w-4/6 rounded-sm bg-black/6 dark:bg-white/6" />
       </div>
       {/* Tech tags */}
       <div className="flex gap-2 mt-auto pt-1">
-        <div className="h-5 w-14 rounded-full bg-black/[0.06] dark:bg-white/[0.06]" />
-        <div className="h-5 w-10 rounded-full bg-black/[0.06] dark:bg-white/[0.06]" />
+        <div className="h-5 w-14 rounded-full bg-black/6 dark:bg-white/6" />
+        <div className="h-5 w-10 rounded-full bg-black/6 dark:bg-white/6" />
       </div>
     </motion.div>
   );
@@ -173,7 +182,7 @@ export default function Projects() {
                       </span>
                     )}
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="font-semibold leading-snug transition-colors pr-2 text-[var(--text-primary)] group-hover:text-orange-500 dark:group-hover:text-orange-400">
+                      <h3 className="font-semibold leading-snug transition-colors pr-2 text-(--text-primary) group-hover:text-orange-500 dark:group-hover:text-orange-400">
                         {project.title}
                       </h3>
                       <div className="flex items-center gap-3 shrink-0 mt-0.5">
@@ -182,7 +191,7 @@ export default function Projects() {
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="transition-colors text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                            className="transition-colors text-(--text-muted) hover:text-(--text-primary)"
                             aria-label="GitHub"
                           >
                             <Github size={17} />
@@ -193,7 +202,7 @@ export default function Projects() {
                             href={project.live}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="transition-colors text-[var(--text-muted)] hover:text-teal-400"
+                            className="transition-colors text-(--text-muted) hover:text-teal-400"
                             aria-label="Live demo"
                           >
                             <ExternalLink size={17} />
@@ -201,7 +210,7 @@ export default function Projects() {
                         )}
                       </div>
                     </div>
-                    <p className="text-sm leading-relaxed flex-1 mb-5 text-[var(--text-secondary)]">
+                    <p className="text-sm leading-relaxed flex-1 mb-5 text-(--text-secondary)">
                       {t.projects.descriptions[project.title] ??
                         project.description}
                     </p>
@@ -224,7 +233,7 @@ export default function Projects() {
                   >
                     <button
                       onClick={() => setShowAll((v) => !v)}
-                      className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-orange-400 transition-colors duration-200 border border-[var(--border)] hover:border-orange-500/40 px-5 py-2.5 rounded-full"
+                      className="flex items-center gap-2 text-sm font-medium text-(--text-secondary) hover:text-orange-400 transition-colors duration-200 border border-(--border) hover:border-orange-500/40 px-5 py-2.5 rounded-full"
                     >
                       {showAll ? (
                         <>

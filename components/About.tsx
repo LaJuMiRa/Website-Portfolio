@@ -30,7 +30,7 @@ export default function About() {
           <div className="grid md:grid-cols-5 gap-14 items-start">
 
             {/* ── Text ── */}
-            <motion.div variants={stagger} className="md:col-span-3 space-y-5 leading-relaxed text-[0.95rem] text-[var(--text-secondary)]">
+            <motion.div variants={stagger} className="md:col-span-3 space-y-5 leading-relaxed text-[0.95rem] text-(--text-secondary)">
               <motion.p variants={fadeUpSoft}>{t.about.bio1}</motion.p>
               <motion.p variants={fadeUpSoft}>{t.about.bio2}</motion.p>
 
@@ -43,14 +43,14 @@ export default function About() {
                 ].map((fact) => (
                   <motion.div key={fact.label} variants={fadeUpSoft} className="card py-3 px-4">
                     <p className="text-teal-400 text-xs font-mono mb-0.5">{fact.label}</p>
-                    <p className="text-sm font-medium text-[var(--text-primary)]">{fact.value}</p>
+                    <p className="text-sm font-medium text-(--text-primary)">{fact.value}</p>
                   </motion.div>
                 ))}
               </motion.div>
             </motion.div>
 
             {/* ── Avatar ── */}
-            <motion.div variants={fadeUp} className="md:col-span-2 order-first md:order-none">
+            <motion.div variants={fadeUp} className="md:col-span-2 order-first md:order-0">
               <div className="relative max-w-xs">
                 <div className="card aspect-square flex flex-col items-center justify-center gap-5 text-center">
                   {/*
@@ -61,12 +61,12 @@ export default function About() {
                    *           className="w-32 h-32 rounded-full object-cover
                    *                      border-2 border-orange-500/30" />
                    */}
-                  <div className="w-28 h-28 rounded-full bg-gradient-to-br from-orange-500/25 to-teal-500/25 border border-orange-500/20 flex items-center justify-center">
+                  <div className="w-28 h-28 rounded-full bg-linear-to-br from-orange-500/25 to-teal-500/25 border border-orange-500/20 flex items-center justify-center">
                     <span className="gradient-text text-4xl font-extrabold font-mono">LR</span>
                   </div>
                   <div>
-                    <p className="font-semibold text-lg text-[var(--text-primary)]">Laurenz Rauscher</p>
-                    <p className="text-sm mt-1 text-[var(--text-muted)]">CS Student</p>
+                    <p className="font-semibold text-lg text-(--text-primary)">Laurenz Rauscher</p>
+                    <p className="text-sm mt-1 text-(--text-muted)">CS Student</p>
                   </div>
                 </div>
                 <div className="absolute -inset-4 bg-orange-500/5 rounded-3xl blur-2xl -z-10" />

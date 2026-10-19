@@ -119,12 +119,12 @@ function Terminal() {
         style={{ border: '1px solid var(--border)', background: 'rgba(8,8,8,0.9)' }}>
 
         {/* Title bar */}
-        <div className="flex items-center gap-1.5 px-4 py-3 border-b border-[var(--border)]"
+        <div className="flex items-center gap-1.5 px-4 py-3 border-b border-(--border)"
           style={{ background: 'rgba(255,255,255,0.03)' }}>
           <span className="w-3 h-3 rounded-full bg-red-500/70" />
           <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
           <span className="w-3 h-3 rounded-full bg-green-500/70" />
-          <span className="ml-3 text-[10px] tracking-widest text-[var(--text-faint)]">terminal</span>
+          <span className="ml-3 text-[10px] tracking-widest text-(--text-faint)">terminal</span>
         </div>
 
         {/* Content */}
@@ -135,13 +135,13 @@ function Terminal() {
               <p key={i} className="text-orange-400">{line.text}</p>
             )
             if (line.type === 'out')   return (
-              <p key={i} className="text-[var(--text-secondary)] pl-2">{line.text}</p>
+              <p key={i} className="text-(--text-secondary) pl-2">{line.text}</p>
             )
             if (line.type === 'skill') return (
               <div key={i} className="flex items-center gap-3 pl-2">
                 <span className="w-20 shrink-0" style={{ color: line.color }}>{line.name}</span>
                 <span style={{ color: line.color, opacity: 0.5 }}>{bar(line.level)}</span>
-                <span className="text-[var(--text-faint)]">{line.label}</span>
+                <span className="text-(--text-faint)">{line.label}</span>
               </div>
             )
           })}
@@ -223,7 +223,7 @@ export default function Hero() {
                 animate={{ y: '0%' }}
                 transition={{ duration: 0.7, ease: lnEase, delay: 0.42 }}
               >
-                <h1 className="text-[clamp(3.5rem,10vw,8rem)] font-extrabold leading-none tracking-tight text-[var(--text-primary)]">
+                <h1 className="text-[clamp(3.5rem,10vw,8rem)] font-extrabold leading-none tracking-tight text-(--text-primary)">
                   Rauscher.
                 </h1>
               </motion.div>
@@ -237,7 +237,7 @@ export default function Hero() {
             {/* ✏️  Dein Titel */}
             <motion.p
               variants={fadeUp}
-              className="text-xl md:text-2xl font-light mb-4 text-[var(--text-secondary)]"
+              className="text-xl md:text-2xl font-light mb-4 text-(--text-secondary)"
             >
               {t.hero.title}
             </motion.p>
@@ -245,7 +245,7 @@ export default function Hero() {
             {/* ✏️  Deine Tagline */}
             <motion.p
               variants={fadeUp}
-              className="max-w-xl mb-12 text-base md:text-lg leading-relaxed text-[var(--text-muted)]"
+              className="max-w-xl mb-12 text-base md:text-lg leading-relaxed text-(--text-muted)"
             >
               {t.hero.tagline}
             </motion.p>
@@ -277,12 +277,12 @@ export default function Hero() {
         animate="visible"
         transition={{ delay: 1.8 }}
       >
-        <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[var(--text-faint)]">{t.hero.scroll}</span>
+        <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-(--text-faint)">{t.hero.scroll}</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
         >
-          <ArrowDown className="text-[var(--text-faint)]" size={15} />
+          <ArrowDown className="text-(--text-faint)" size={15} />
         </motion.div>
       </motion.div>
     </section>

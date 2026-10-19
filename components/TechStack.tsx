@@ -26,7 +26,7 @@ export default function TechStack() {
   const [paused, setPaused] = useState(false)
 
   return (
-    <section id="skills" className="relative z-10 overflow-hidden border-y border-[var(--border)] py-5 my-4">
+    <section id="skills" className="relative z-10 overflow-hidden border-y border-(--border) py-5 my-4">
       {/* Fade edges */}
       <div
         className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10"
@@ -61,7 +61,7 @@ export default function TechStack() {
             >
               {tech.icon}
             </span>
-            <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors duration-200">
+            <span className="text-sm font-medium text-(--text-secondary) group-hover:text-(--text-primary) transition-colors duration-200">
               {tech.name}
             </span>
           </div>

@@ -79,8 +79,10 @@ export const de: Translations = {
     descriptions: {
       "Browsing-Wrapped":
         "Eine Safari-Erweiterung, die deinen Browserverlauf aufzeichnet und in eine animierte Zusammenfassung verwandelt. Top-Seiten, verbrachte Zeit, wiederkehrende Themen – alles auf deinem Gerät berechnet.",
-      Dispatcher:
+      "Dispatcher":
         "Eine Systemprogrammierungs-Demo in C, das eine Eltern-Kind-Prozessarchitektur für verteilte Aufgabenverarbeitung implementiert. Worker kommunizieren über POSIX-Message-Queues mit konfigurierbarer Pool-Größe, begrenzten Aufgabenwarteschlangen und sauberem Shutdown.",
+      "Dungeon-Crawler":
+        "Ein spielzug basiertes Roguelike für das Terminal: rennen gegen den KI-Gegner in einem generiertem Labyrinth und einem Showdown in einer Arena."
     } as Record<string, string>,
   },
   contact: {

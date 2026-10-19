@@ -73,8 +73,8 @@ export default function Contact() {
                   transition={{ duration: 0.4 }} className="card flex flex-col items-start gap-4 py-10">
                   <CheckCircle className="text-teal-400" size={36} />
                   <div>
-                    <p className="font-semibold text-lg text-[var(--text-primary)]">{t.contact.successTitle}</p>
-                    <p className="text-sm mt-1 text-[var(--text-secondary)]">{t.contact.successBody}</p>
+                    <p className="font-semibold text-lg text-(--text-primary)">{t.contact.successTitle}</p>
+                    <p className="text-sm mt-1 text-(--text-secondary)">{t.contact.successBody}</p>
                   </div>
                   <button onClick={() => { setSent(false); setName(''); setEmail(''); setMessage('') }}
                     className="text-orange-400 text-sm hover:text-orange-300 transition-colors font-medium">
@@ -85,20 +85,20 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="card space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="name" className="text-xs font-mono text-[var(--text-secondary)]">{t.contact.nameLabel}</label>
+                      <label htmlFor="name" className="text-xs font-mono text-(--text-secondary)">{t.contact.nameLabel}</label>
                       <input id="name" type="text" placeholder={t.contact.namePlaceholder}
                         value={name} onChange={(e) => { setName(e.target.value); if (errors.name) setErrors(prev => ({ ...prev, name: undefined })) }} className="form-input" />
                       {errors.name && <span className="text-xs text-red-400 mt-0.5">{errors.name}</span>}
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="email" className="text-xs font-mono text-[var(--text-secondary)]">{t.contact.emailLabel}</label>
+                      <label htmlFor="email" className="text-xs font-mono text-(--text-secondary)">{t.contact.emailLabel}</label>
                       <input id="email" type="email" placeholder={t.contact.emailPlaceholder}
                         value={email} onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors(prev => ({ ...prev, email: undefined })) }} className="form-input" />
                       {errors.email && <span className="text-xs text-red-400 mt-0.5">{errors.email}</span>}
                     </div>
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="message" className="text-xs font-mono text-[var(--text-secondary)]">{t.contact.messageLabel}</label>
+                    <label htmlFor="message" className="text-xs font-mono text-(--text-secondary)">{t.contact.messageLabel}</label>
                     <textarea id="message" rows={6} placeholder={t.contact.messagePlaceholder}
                       value={message} onChange={(e) => { setMessage(e.target.value); if (errors.message) setErrors(prev => ({ ...prev, message: undefined })) }} className="form-input resize-none" />
                     {errors.message && <span className="text-xs text-red-400 mt-0.5">{errors.message}</span>}
@@ -112,22 +112,22 @@ export default function Contact() {
 
             {/* ── Right: intro + social ── */}
             <motion.div variants={stagger} className="md:col-span-2 space-y-8">
-              <motion.p variants={fadeUpSoft} className="leading-relaxed text-[0.95rem] text-[var(--text-secondary)]">
+              <motion.p variants={fadeUpSoft} className="leading-relaxed text-[0.95rem] text-(--text-secondary)">
                 {t.contact.intro}
               </motion.p>
 
               <motion.div variants={fadeUpSoft}>
-                <p className="text-[11px] font-mono uppercase tracking-[0.2em] mb-3 text-[var(--text-faint)]">
+                <p className="text-[11px] font-mono uppercase tracking-[0.2em] mb-3 text-(--text-faint)">
                   {t.contact.findOnline}
                 </p>
                 <div className="flex flex-col gap-3">
                   {socialLinks.map((s) => (
                     <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
                       className={`card flex items-center gap-4 transition-all duration-300 group ${s.hoverBorder}`}>
-                      <s.icon size={20} className={`shrink-0 transition-all duration-200 group-hover:scale-110 text-[var(--text-muted)] ${s.hoverText}`} />
+                      <s.icon size={20} className={`shrink-0 transition-all duration-200 group-hover:scale-110 text-(--text-muted) ${s.hoverText}`} />
                       <div className="min-w-0">
-                        <p className="text-sm font-medium text-[var(--text-primary)]">{s.name}</p>
-                        <p className="text-xs truncate text-[var(--text-muted)]">{s.handle}</p>
+                        <p className="text-sm font-medium text-(--text-primary)">{s.name}</p>
+                        <p className="text-xs truncate text-(--text-muted)">{s.handle}</p>
                       </div>
                     </a>
                   ))}
@@ -135,7 +135,7 @@ export default function Contact() {
               </motion.div>
 
               <motion.div variants={fadeUpSoft}>
-                <p className="text-[11px] font-mono uppercase tracking-[0.2em] mb-2 text-[var(--text-faint)]">
+                <p className="text-[11px] font-mono uppercase tracking-[0.2em] mb-2 text-(--text-faint)">
                   {t.contact.directContact}
                 </p>
                 <a href={`mailto:${EMAIL}`}
