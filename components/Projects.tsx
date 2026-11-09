@@ -44,15 +44,6 @@ const projects: {
     featured: true,
   },
   {
-    title: "Browsing-Wrapped",
-    description:
-      "A Safari extension that tracks your browsing and turns it into a beautiful, animated recap. Top sites, time spent, recurring themes — all computed on your device.",
-    tech: ["JavaScript", "React", "JSX"],
-    github: "https://github.com/LaJuMiRa/safari-wrapped",
-    live: null,
-    featured: false,
-  },
-  {
     title: "Dispatcher",
     description:
       "A systems programming demo in C implementing a parent-child process architecture for distributed task processing. Workers communicate via POSIX message queues with configurable pool sizes, bounded task queues, and graceful shutdown.",
@@ -61,33 +52,16 @@ const projects: {
     live: null,
     featured: false,
   },
+  {
+    title: "Browsing-Wrapped",
+    description:
+      "A Safari extension that tracks your browsing and turns it into a beautiful, animated recap. Top sites, time spent, recurring themes — all computed on your device.",
+    tech: ["JavaScript", "React", "JSX"],
+    github: "https://github.com/LaJuMiRa/safari-wrapped",
+    live: null,
+    featured: false,
+  },
 ];
-
-/* ── In Progress Banner ── */
-function InProgressBanner({
-  inProgress,
-  checkBack,
-}: {
-  inProgress: string;
-  checkBack: string;
-}) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      className="flex items-center justify-between gap-4 border border-orange-500/20 rounded-lg px-4 py-2.5 mb-6 bg-orange-500/5"
-    >
-      <div className="flex items-center gap-2.5">
-        <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shrink-0" />
-        <span className="text-sm text-(--text-secondary)">
-          {inProgress}
-        </span>
-      </div>
-      <span className="font-mono text-[11px] text-(--text-faint) shrink-0">
-        {checkBack}
-      </span>
-    </motion.div>
-  );
-}
 
 /* ── Ghost Card ── */
 function GhostCard() {
@@ -145,10 +119,6 @@ export default function Projects() {
           {COMING_SOON ? (
             /* ── Coming Soon: Banner + Ghost Cards ── */
             <>
-              <InProgressBanner
-                inProgress={t.projects.inProgress}
-                checkBack={t.projects.checkBack}
-              />
               <motion.div
                 variants={staggerFast}
                 className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
@@ -161,10 +131,6 @@ export default function Projects() {
           ) : (
             /* ── Real Projects + Expand/Collapse ── */
             <>
-              <InProgressBanner
-                inProgress={t.projects.inProgress}
-                checkBack={t.projects.checkBack}
-              />
               <motion.div
                 variants={staggerFast}
                 className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"

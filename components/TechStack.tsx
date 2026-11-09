@@ -3,19 +3,19 @@
 import { useState } from 'react'
 
 const technologies = [
-    { name: 'Python',     icon: 'PY',  color: '#087b00' },
-    { name: 'C',         icon: 'C',   color: '#2dd4bf' },
-    { name: 'C++',       icon: 'C++', color: '#fb923c' },
-    { name: 'JavaScript',       icon: 'JS', color: '#fbbf24' },
-    { name: 'PHP',       icon: 'PHP', color: '#777BB4' },
-    { name: 'SQL',       icon: 'SQL', color: '#2c60d1' },
-    { name: 'C#',       icon: 'C#', color: '#512BD4' },
+    { name: 'Python',     icon: 'PY',   color: '#087b00' },
+    { name: 'Linux',      icon: '🐧',   color: '#a3e635' },
+    { name: 'C#',         icon: 'C#',   color: '#512BD4' },
+    { name: 'C',          icon: 'C',    color: '#2dd4bf' },
+    { name: 'C++',        icon: 'C++',  color: '#fb923c' },
+    { name: 'JavaScript', icon: 'JS',   color: '#fbbf24' },
+    { name: 'PHP',        icon: 'PHP',  color: '#777BB4' },
+    { name: 'SQL',        icon: 'SQL',  color: '#2c60d1' },
   // ✏️  Weitere einkommentieren:
   // { name: 'Rust',       icon: 'RS', color: '#f97316' },
   // { name: 'TypeScript', icon: 'TS', color: '#38bdf8' },
   // { name: 'React',      icon: '⚛',  color: '#22d3ee' },
   // { name: 'Docker',     icon: '🐳', color: '#0ea5e9' },
-  // { name: 'Linux',      icon: '🐧', color: '#a3e635' },
 ]
 
 // Duplicate 4x for a seamless loop with enough content at all widths
