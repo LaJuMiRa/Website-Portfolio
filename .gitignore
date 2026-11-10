@@ -49,3 +49,9 @@ node_modules/
 # MylocalShit #
 ###############
 
+
+# Brainstorm mockups #
+.superpowers/
+
+# Build caches #
+*.tsbuildinfo

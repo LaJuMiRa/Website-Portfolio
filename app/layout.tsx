@@ -2,63 +2,80 @@ import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Geist, Martian_Mono, Schibsted_Grotesk } from 'next/font/google'
 import './globals.css'
 import ThemeProvider from '@/components/ThemeProvider'
 import LanguageProvider from '@/components/LanguageProvider'
-import DotBackground from '@/components/DotBackground'
+import { SITE } from '@/lib/site'
 
-const inter = Inter({
+const heading = Geist({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--ff-heading',
+  display: 'swap',
 })
 
-const jetbrainsMono = JetBrains_Mono({
+const mono = Martian_Mono({
   subsets: ['latin'],
-  variable: '--font-jetbrains-mono',
+  axes: ['wdth'],
+  variable: '--ff-mono',
+  display: 'swap',
 })
+
+const body = Schibsted_Grotesk({
+  subsets: ['latin'],
+  variable: '--ff-body',
+  display: 'swap',
+})
+
+const TITLE = 'Laurenz Rauscher · Informatik-Student & Softwareentwickler'
+const DESCRIPTION =
+  'Portfolio von Laurenz Rauscher, Informatik-Student an der FH Wiener Neustadt: Projekte, Erfahrung und Kontakt.'
 
 export const viewport: Viewport = {
   viewportFit: 'cover',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f3f5f9' },
+    { media: '(prefers-color-scheme: dark)', color: '#0d1016' },
+  ],
 }
 
 export const metadata: Metadata = {
-  title: 'Laurenz Rauscher — Software Developer',
-  description: 'Portfolio of Laurenz Rauscher — Software Developer passionate about building elegant software solutions.',
-  metadataBase: new URL('https://laurenz-rauscher.at'),
+  title: TITLE,
+  description: DESCRIPTION,
+  metadataBase: new URL(SITE.url),
   openGraph: {
-    title: 'Laurenz Rauscher — Software Developer',
-    description: 'Portfolio of Laurenz Rauscher',
-    url: 'https://laurenz-rauscher.at',
-    siteName: 'Laurenz Rauscher',
-    locale: 'en_US',
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE.url,
+    siteName: SITE.name,
+    locale: 'de_AT',
     type: 'website',
   },
 }
 
+const THEME_INIT = `
+(function(){
+  try {
+    var saved = localStorage.getItem('theme');
+    var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    if ((saved || system) === 'light') document.documentElement.classList.remove('dark');
+  } catch (e) {}
+})();
+`
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="de"
+      className={`dark ${heading.variable} ${mono.variable} ${body.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: `
-          (function(){
-            try {
-              var t = localStorage.getItem('theme');
-              var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-              var theme = t || sys;
-              if (theme === 'light') {
-                document.documentElement.classList.remove('dark');
-              }
-            } catch(e) {}
-          })();
-        `}} />
+        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>
-      <body className="antialiased font-sans">
+      <body className="font-sans antialiased">
         <ThemeProvider>
-          <LanguageProvider>
-            <DotBackground />
-            {children}
-          </LanguageProvider>
+          <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
         <SpeedInsights />
         <Analytics />

@@ -1,223 +1,108 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef } from "react";
-import {
-  Github,
-  ExternalLink,
-  Star,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
-import {
-  stagger,
-  staggerFast,
-  slideFromLeft,
-  clipReveal,
-  fadeUp,
-  fadeUpSoft,
-  fadeIn,
-} from "@/lib/animations";
-import { useLanguage } from "./LanguageProvider";
+import Link from 'next/link'
+import { ArrowRight, ArrowUpRight, Github } from 'lucide-react'
+import Section from './Section'
+import Reveal from './Reveal'
+import { useLanguage } from './LanguageProvider'
+import ProjectVisual from './visuals/ProjectVisual'
+import { PROJECTS, projectPath, type Project } from '@/lib/projects'
+import { SITE } from '@/lib/site'
+import type { Translations } from '@/lib/translations'
 
-// ✏️ Auf false setzen wenn echte Projekte vorhanden sind
-const COMING_SOON = false;
-
-const PREVIEW_COUNT = 3;
-
-const projects: {
-  title: string;
-  description: string;
-  tech: string[];
-  github: string | null;
-  live: string | null;
-  featured: boolean;
-}[] = [
-  {
-    title: "Dungeon-Crawler",
-    description:
-      "A turn-based roguelike for the terminal: race an AI rival through a procedurally generated dungeon, then face it in the arena.",
-    tech: ["Python"],
-    github: "https://github.com/LaJuMiRa/dungen-crawler",
-    live: null,
-    featured: true,
-  },
-  {
-    title: "Dispatcher",
-    description:
-      "A systems programming demo in C implementing a parent-child process architecture for distributed task processing. Workers communicate via POSIX message queues with configurable pool sizes, bounded task queues, and graceful shutdown.",
-    tech: ["C", "POSIX", "IPC", "Linux"],
-    github: "https://github.com/LaJuMiRa/dispatcher",
-    live: null,
-    featured: false,
-  },
-  {
-    title: "Browsing-Wrapped",
-    description:
-      "A Safari extension that tracks your browsing and turns it into a beautiful, animated recap. Top sites, time spent, recurring themes — all computed on your device.",
-    tech: ["JavaScript", "React", "JSX"],
-    github: "https://github.com/LaJuMiRa/safari-wrapped",
-    live: null,
-    featured: false,
-  },
-];
-
-/* ── Ghost Card ── */
-function GhostCard() {
+function ProjectText({ project, t, large = false }: { project: Project; t: Translations; large?: boolean }) {
+  const detailLabel = project.id === 'dungeon-crawler' ? t.detail.playInBrowser : t.detail.viewProject
   return (
-    <motion.div
-      variants={fadeUpSoft}
-      className="card skeleton-shimmer flex flex-col gap-3 min-h-[190px]"
-    >
-      {/* Title */}
-      <div className="h-4 w-3/4 rounded-sm bg-black/6 dark:bg-white/6" />
-      {/* Description */}
-      <div className="flex flex-col gap-2 flex-1">
-        <div className="h-3 w-full rounded-sm bg-black/6 dark:bg-white/6" />
-        <div className="h-3 w-5/6 rounded-sm bg-black/6 dark:bg-white/6" />
-        <div className="h-3 w-4/6 rounded-sm bg-black/6 dark:bg-white/6" />
+    <div className="flex flex-col items-start">
+      <h3 className={`font-display font-semibold ${large ? 'text-[1.75rem] md:text-[2rem]' : 'text-2xl'}`}>
+        <Link
+          href={projectPath(project.id)}
+          className="transition-colors after:absolute after:inset-0 after:content-[''] group-hover/card:text-accent"
+        >
+          {project.title}
+        </Link>
+      </h3>
+      <p className={`mt-3 text-muted ${large ? 'text-lg' : ''}`}>{t.projects.descriptions[project.id]}</p>
+      <ul className="mt-5 flex flex-wrap gap-2">
+        {project.tech.map(tech => (
+          <li key={tech} className="tag">
+            {tech}
+          </li>
+        ))}
+      </ul>
+      <div className="relative z-10 mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <Link href={projectPath(project.id)} className="text-link inline-flex items-center gap-2">
+          {detailLabel}
+          <ArrowRight
+            size={17}
+            aria-hidden
+            className="transition-transform duration-300 ease-out group-hover/card:translate-x-1"
+          />
+          <span className="sr-only">: {project.title}</span>
+        </Link>
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-link inline-flex items-center gap-2"
+        >
+          <Github size={17} aria-hidden />
+          {t.projects.codeLink}
+          <span className="sr-only">: {project.title}</span>
+        </a>
       </div>
-      {/* Tech tags */}
-      <div className="flex gap-2 mt-auto pt-1">
-        <div className="h-5 w-14 rounded-full bg-black/6 dark:bg-white/6" />
-        <div className="h-5 w-10 rounded-full bg-black/6 dark:bg-white/6" />
-      </div>
-    </motion.div>
-  );
+    </div>
+  )
 }
 
 export default function Projects() {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const vis = isInView ? "visible" : "hidden";
-  const [showAll, setShowAll] = useState(false);
-  const { t } = useLanguage();
-
-  const displayed = showAll ? projects : projects.slice(0, PREVIEW_COUNT);
-  const hiddenCount = projects.length - PREVIEW_COUNT;
+  const { t } = useLanguage()
+  const [featured, ...rest] = PROJECTS
+  const github = SITE.socials.find(social => social.id === 'github')
 
   return (
-    <section id="projects" ref={ref}>
-      <div className="section-wrapper">
-        <motion.div variants={stagger} initial="hidden" animate={vis}>
-          <div className="section-header">
-            <motion.span variants={slideFromLeft} className="section-number">
-              03.
-            </motion.span>
-            <div className="overflow-hidden">
-              <motion.h2 variants={clipReveal} className="section-heading">
-                {t.projects.sectionHeading}
-              </motion.h2>
+    <Section id="projects" heading={t.projects.heading} intro={t.projects.intro}>
+      <div className="project-list">
+        <Reveal>
+          <article className="project-card group/card grid overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+            <div className="min-h-64 border-b border-line bg-well lg:border-r lg:border-b-0">
+              <ProjectVisual id={featured.id} />
             </div>
-            <motion.div variants={fadeIn} className="section-divider" />
-          </div>
-          <motion.p variants={fadeUp} className="section-subtitle">
-            {t.projects.subtitle}
-          </motion.p>
+            <div className="flex items-center p-7 md:p-10">
+              <ProjectText project={featured} t={t} large />
+            </div>
+          </article>
+        </Reveal>
 
-          {COMING_SOON ? (
-            /* ── Coming Soon: Banner + Ghost Cards ── */
-            <>
-              <motion.div
-                variants={staggerFast}
-                className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
-              >
-                <GhostCard />
-                <GhostCard />
-                <GhostCard />
-              </motion.div>
-            </>
-          ) : (
-            /* ── Real Projects + Expand/Collapse ── */
-            <>
-              <motion.div
-                variants={staggerFast}
-                className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
-              >
-                {displayed.map((project) => (
-                  <motion.div
-                    key={project.title}
-                    variants={fadeUpSoft}
-                    className="card group flex flex-col"
-                  >
-                    {project.featured && (
-                      <span className="flex items-center gap-1 text-[11px] font-mono text-amber-400/80 mb-3">
-                        <Star size={10} fill="currentColor" />{" "}
-                        {t.projects.featured}
-                      </span>
-                    )}
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="font-semibold leading-snug transition-colors pr-2 text-(--text-primary) group-hover:text-orange-500 dark:group-hover:text-orange-400">
-                        {project.title}
-                      </h3>
-                      <div className="flex items-center gap-3 shrink-0 mt-0.5">
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="transition-colors text-(--text-muted) hover:text-(--text-primary)"
-                            aria-label="GitHub"
-                          >
-                            <Github size={17} />
-                          </a>
-                        )}
-                        {project.live && (
-                          <a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="transition-colors text-(--text-muted) hover:text-teal-400"
-                            aria-label="Live demo"
-                          >
-                            <ExternalLink size={17} />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                    <p className="text-sm leading-relaxed flex-1 mb-5 text-(--text-secondary)">
-                      {t.projects.descriptions[project.title] ??
-                        project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mt-auto">
-                      {project.tech.map((t) => (
-                        <span key={t} className="tech-tag">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              <AnimatePresence>
-                {hiddenCount > 0 && (
-                  <motion.div
-                    variants={fadeUp}
-                    className="flex justify-center mt-8"
-                  >
-                    <button
-                      onClick={() => setShowAll((v) => !v)}
-                      className="flex items-center gap-2 text-sm font-medium text-(--text-secondary) hover:text-orange-400 transition-colors duration-200 border border-(--border) hover:border-orange-500/40 px-5 py-2.5 rounded-full"
-                    >
-                      {showAll ? (
-                        <>
-                          <ChevronUp size={15} /> {t.projects.showLess}
-                        </>
-                      ) : (
-                        <>
-                          <ChevronDown size={15} /> {t.projects.showMore}
-                        </>
-                      )}
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </>
-          )}
-        </motion.div>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          {rest.map((project, index) => (
+            <Reveal key={project.id} delay={index * 110} className="flex">
+              <article className="project-card group/card flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-surface">
+                <div className="flex min-h-64 border-b border-line bg-well md:h-72">
+                  <ProjectVisual id={project.id} />
+                </div>
+                <div className="p-7 md:p-8">
+                  <ProjectText project={project} t={t} />
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
-    </section>
-  );
+
+      {github && (
+        <p className="mt-10">
+          <a
+            href={github.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link inline-flex items-center gap-1.5"
+          >
+            {t.projects.more}
+            <ArrowUpRight size={17} aria-hidden />
+          </a>
+        </p>
+      )}
+    </Section>
+  )
 }

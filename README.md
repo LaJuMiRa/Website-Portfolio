@@ -1,191 +1,96 @@
-# Laurenz Rauscher — Personal Portfolio
+# Laurenz Rauscher · Portfolio
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38bdf8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff0055?style=flat-square&logo=framer&logoColor=white)](https://www.framer.com/motion/)
-[![Static Export](https://img.shields.io/badge/Deployment-Static_Export-14b8a6?style=flat-square)](https://laurenz-rauscher.at)
+Personal portfolio with projects, a playable browser version of my dungeon crawler, experience and contact.
 
-> Personal portfolio website showcasing projects, skills, and experience
+**Live:** [laurenz-rauscher.at](https://laurenz-rauscher.at)
 
-🌐 **Live:** [laurenz-rauscher.at](https://laurenz-rauscher.at)
+## Pages
 
----
+| Route | Content |
+|-------|---------|
+| `/` | One-pager: hero, projects, about, experience, contact |
+| `/projects/dungeon-crawler/` | Playable Dungeon-Crawler (demo mode or play it yourself), legend, run commands |
+| `/projects/dispatcher/`, `/projects/browsing-wrapped/` | Project detail pages |
+| `/experience/` | Full career history: education, work, volunteering, languages, certificates |
 
-## ✨ Features
+## Features
 
-### Navigation
-- Fixed navbar with **scroll-triggered backdrop blur** and border reveal
-- Smooth anchor-link navigation to all sections
-- **Resume download** button (direct PDF link)
-- **Mobile hamburger menu** with animated slide-down
+- **German and English**, switchable in the header, remembered in the browser
+- **Light and dark mode**, following the system setting until changed
+- **Name animation** in the hero: the name resolves out of dungeon map symbols
+- **Scroll reveals**: section rules draw in, headings wipe in, cards and lists fade in
+- **Project cards**: the hovered card steps forward, the others step back; the whole card is clickable
+- **Tech stack tags** that link to the project they are used in
+- **Study progress bar** that works out the current semester from the date
+- **Contact form** that opens the visitor's mail client with subject and text filled in, so no backend is needed
+- All motion respects `prefers-reduced-motion`
 
-### Hero Section
-- **TypeWriter animation** — looping "Hello, I'm" effect (type → pause → delete → repeat)
-- **Name clip-reveal** — "Laurenz Rauscher." animates in with an overflow-clipping reveal
-- Three **floating background blobs** (orange, teal, amber) with independent float animations
-- Primary CTAs: Download Resume + Get in Touch
-- Animated scroll indicator (bottom-left)
+## Tech
 
-### About
-- Bio text (3 paragraphs, fully editable)
-- **Avatar** — gradient monogram circle (or swappable with `profile.jpg`)
-- Info cards grid: Location, Education, Availability, Languages
+- [Next.js 15](https://nextjs.org/) (App Router, static export) with React 19 and TypeScript
+- [Tailwind CSS 4](https://tailwindcss.com/), design tokens as CSS variables in `app/globals.css`
+- [Framer Motion](https://www.framer.com/motion/) for the project illustrations, plain CSS for everything else
+- [Lucide](https://lucide.dev/) icons
+- [Vitest](https://vitest.dev/) for the game engine and the study progress logic
+- Fonts: Geist (headings and name), Schibsted Grotesk (body), Martian Mono (code and game)
 
-### Tech Stack
-- Visual **proficiency cards** with color-coded icons
-- Three levels: Primary, Learning, Familiar
-- Expandable — additional techs can be uncommented in the component
-
-### Experience
-- Chronological **timeline** with orange gradient connector line
-- Each entry: role, company, location, period, employment type, bullet points, tech tags
-
-### Projects
-- Responsive grid (2–3 columns)
-- **Featured badge** (⭐ amber) for highlighted projects
-- GitHub + Live Demo link icons per card
-- Card hover — title highlight in orange
-
-### Contact Form
-- Name, Email, Message fields
-- **Mailto approach** — opens native email client with pre-filled subject + body (no backend needed)
-- Success state with `CheckCircle` icon and "Send another" reset option
-- Social links (GitHub, LinkedIn) + direct email link
-
----
-
-## 🎨 Design System
-
-### Color Palette
-
-| Role | Token | Hex |
-|------|-------|-----|
-| Background | — | `#080808` |
-| Accent / CTA | Orange | `#f97316` |
-| Section numbers | Teal | `#14b8a6` |
-| Featured / warm | Amber | `#fbbf24` |
-| Text | Slate 100 | `#f1f5f9` |
-
-### Typography
-- **Sans:** Inter (Google Fonts)
-- **Mono:** JetBrains Mono (Google Fonts) — used for section numbers and tech tags
-
-### Animation Philosophy
-Animations reveal content — they don't distract from it.
-
-| Variant | Description |
-|---------|-------------|
-| `fadeUp` | Opacity + vertical rise (y: 36→0), 0.5s |
-| `fadeUpSoft` | Softer fade with slight scale snap (0.97→1) |
-| `clipReveal` | Text rises from below with overflow clipping |
-| `stagger` | Container with 0.09s child stagger |
-| `staggerFast` | Tighter stagger (0.055s) for dense grids |
-| `fadeIn` | Pure opacity fade, 0.45s |
-| `slideFromLeft` | Horizontal slide-in from -28px |
-
-All section animations use `useInView({ once: true, margin: '-80px' })`.
-
----
-
-## 🗂 Project Structure
+## Project structure
 
 ```
-Website-Portfolio/
-├── app/
-│   ├── layout.tsx        # Root layout — fonts, metadata, OG tags
-│   ├── page.tsx          # Main page — composes all sections
-│   └── globals.css       # Design system: utilities, animations, scrollbar
-├── components/
-│   ├── Navbar.tsx        # Fixed nav with mobile menu + resume download
-│   ├── Hero.tsx          # TypeWriter + clip-reveal + background blobs
-│   ├── About.tsx         # Bio, avatar, info cards
-│   ├── TechStack.tsx     # Proficiency cards
-│   ├── Experience.tsx    # Timeline with jobs
-│   ├── Projects.tsx      # Grid with featured badges + links
-│   └── Contact.tsx       # Mailto form + social links
-├── lib/
-│   └── animations.ts     # Shared Framer Motion variants
-├── public/
-│   ├── resume.pdf        # CV (replace with your own)
-│   └── profile.jpg       # (optional) Profile photo
-├── next.config.js        # Static export config
-└── tailwind.config.ts    # Font variable extensions
+app/
+  layout.tsx              Fonts, metadata, theme and language providers
+  page.tsx                Home page
+  projects/[id]/page.tsx  Project detail pages
+  experience/page.tsx     Career page
+  globals.css             Tokens, utilities, motion
+components/
+  Header, Hero, Projects, About, Experience, Contact, Footer
+  Section, Reveal, ScrambleText, CopyButton
+  game/                   Canvas renderer and UI of the browser game
+  project/                Detail page layouts
+  experience/             Career page and study progress bar
+  visuals/                Animated project illustrations
+lib/
+  site.ts                 Name, links, socials, tech stack
+  projects.ts             Project data
+  study.ts                Semester calculation
+  game/                   Game engine: map generation, rules, rival AI
+  translations/           German and English texts
+tests/                    Vitest tests
+public/                   Résumé PDF
 ```
 
----
+## Getting started
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+
-- npm
-
-### Installation
+Requires Node.js 22 or newer.
 
 ```bash
-# Clone the repository
-git clone https://github.com/laurenz-rauscher/Website-Portfolio.git
+git clone https://github.com/LaJuMiRa/Website-Portfolio.git
 cd Website-Portfolio
-
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Then open [http://localhost:3000](http://localhost:3000).
 
-### Build
+| Command | What it does |
+|---------|--------------|
+| `npm run dev` | Development server |
+| `npm run build` | Static build into `out/` |
+| `npm test` | Run the tests |
+| `npm run typecheck` | Type check without building |
 
-```bash
-npm run build
-```
+## Editing content
 
-Generates a fully static site in the `/out` directory — ready for deployment to any static host.
+| What | Where |
+|------|-------|
+| All texts (both languages) | `lib/translations/de.ts`, `lib/translations/en.ts` |
+| Name, e-mail, social links, tech stack | `lib/site.ts` |
+| Projects | `lib/projects.ts` plus their texts in the translations |
+| Start and length of the degree | `lib/study.ts` |
+| Résumé | `public/Lebenslauf_Rauscher.pdf` |
+| Colours and fonts | `app/globals.css`, `app/layout.tsx` |
 
----
+## Deployment
 
-## ✏️ Customization
-
-All placeholder content is marked with `✏️` comments directly in the component files. Here's where to find what:
-
-| What | File |
-|------|------|
-| Hero title & tagline | `components/Hero.tsx` |
-| About paragraphs & info cards | `components/About.tsx` |
-| Profile photo | `components/About.tsx` (swap `profile.jpg`) |
-| Tech skills | `components/TechStack.tsx` |
-| Work experience | `components/Experience.tsx` |
-| Projects | `components/Projects.tsx` |
-| Contact email & social links | `components/Contact.tsx` |
-| Resume PDF | `public/resume.pdf` |
-| Metadata & OG tags | `app/layout.tsx` |
-
----
-
-## 🌍 Deployment
-
-The site is configured for **static export** (`output: 'export'` in `next.config.js`).
-
-After `npm run build`, the `/out` directory contains plain HTML/CSS/JS — deployable to any static host (Netlify, Vercel, GitHub Pages, or a custom server).
-
-**Live at:** [laurenz-rauscher.at](https://laurenz-rauscher.at)
-
----
-
-## 🛠 Built With
-
-- [Next.js 14](https://nextjs.org/) — React framework with App Router
-- [TypeScript](https://www.typescriptlang.org/) — Type safety
-- [Tailwind CSS](https://tailwindcss.com/) — Utility-first styling
-- [Framer Motion](https://www.framer.com/motion/) — Animations
-- [Lucide React](https://lucide.dev/) — Icons
-- [Google Fonts](https://fonts.google.com/) — Inter & JetBrains Mono
-
----
-
-<p align="center">
-  <sub>© 2026 Laurenz Rauscher · Built with Next.js & Tailwind CSS</sub>
-</p>
+The site is a static export (`output: 'export'` in `next.config.js`). `npm run build` writes plain HTML, CSS and JS to `out/`, which any static host can serve.

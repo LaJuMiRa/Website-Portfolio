@@ -1,27 +1,23 @@
-import Navbar from '@/components/Navbar'
+import Header from '@/components/Header'
 import Hero from '@/components/Hero'
-import About from '@/components/About'
-import TechStack from '@/components/TechStack'
-import Experience from '@/components/Experience'
 import Projects from '@/components/Projects'
+import About from '@/components/About'
+import Experience from '@/components/Experience'
 import Contact from '@/components/Contact'
-import BackToTop from '@/components/BackToTop'
+import Footer from '@/components/Footer'
+
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <main>
+      <Header />
+      <main id="main">
         <Hero />
-        <About />
-          {/*<TechStack />*/}
-        <Experience />
         <Projects />
+        <About />
+        <Experience />
         <Contact />
       </main>
-      <footer className="relative z-10 flex items-center justify-between py-8 text-sm text-(--text-faint) border-t border-(--border) px-8 md:px-12 lg:px-16">
-        <BackToTop />
-        <p>© 2026 Laurenz Rauscher · Built with Next.js & Tailwind CSS</p>
-      </footer>
+      <Footer />
     </>
   )
 }

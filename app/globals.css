@@ -2,330 +2,327 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  --font-sans: var(--font-inter), sans-serif;
-  --font-mono: var(--font-jetbrains-mono), monospace;
+/* ===================== TOKENS ===================== */
+:root {
+  --bg: #f3f5f9;
+  --surface: #ffffff;
+  --well: #e6eaf2;
+  --ink: #12151f;
+  --muted: #535a6b;
+  --faint: #6c7385;
+  --line: rgba(18, 21, 31, 0.11);
+  --line-strong: rgba(18, 21, 31, 0.24);
+  --accent: #2247d4;
+  --accent-strong: #1a38ac;
+  --accent-ink: #ffffff;
+  --accent-soft: #dbe3fb;
+  --rival: #b4451f;
+  --loot: #8f5b00;
+  --danger: #b3261e;
+  --board-bg: #ffffff;
+  --board-wall: #232937;
+  --header-bg: rgba(243, 245, 249, 0.86);
+  --card-shadow: rgba(18, 21, 31, 0.28);
+  --heading-stack: var(--ff-heading), var(--ff-body), ui-sans-serif, system-ui, sans-serif;
+  --mono-stack: var(--ff-mono), ui-monospace, 'SF Mono', Menlo, monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+.dark {
+  --bg: #0d1016;
+  --surface: #151a23;
+  --well: #1b212c;
+  --ink: #ecf0f5;
+  --muted: #a3acba;
+  --faint: #7d8696;
+  --line: rgba(236, 240, 245, 0.1);
+  --line-strong: rgba(236, 240, 245, 0.24);
+  --accent: #8fb4ff;
+  --accent-strong: #b0caff;
+  --accent-ink: #0b1430;
+  --accent-soft: #1b2a52;
+  --rival: #f0946c;
+  --loot: #f0c05a;
+  --danger: #ff8a80;
+  --board-bg: #090b10;
+  --board-wall: #2c3445;
+  --header-bg: rgba(13, 16, 22, 0.86);
+  --card-shadow: rgba(0, 0, 0, 0.75);
+}
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+@theme inline {
+  --font-sans: var(--ff-body), ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-well: var(--well);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-rival: var(--rival);
+  --color-loot: var(--loot);
+  --color-danger: var(--danger);
+}
+
+/* ===================== BASE ===================== */
 @layer base {
   *,
   ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-}
-
-@utility gradient-text {
-  /* Gradient: orange → amber → teal — feels warm and personal */
-  @apply bg-linear-to-r from-orange-400 via-amber-300 to-teal-400 bg-clip-text text-transparent;
-}
-
-@utility gradient-text-short {
-  @apply bg-linear-to-r from-orange-400 to-teal-400 bg-clip-text text-transparent;
-}
-
-@utility btn-primary {
-  @apply inline-flex items-center gap-2 px-7 py-3.5
-           bg-orange-500 hover:bg-orange-400 text-white font-medium
-           rounded-full transition-all duration-300
-           hover:shadow-[0_0_32px_rgba(249,115,22,0.45)] hover:-translate-y-0.5 active:translate-y-0;
-}
-
-@utility btn-secondary {
-  @apply inline-flex items-center gap-2 px-7 py-3.5
-           font-medium rounded-full transition-all duration-300 backdrop-blur-xs
-           hover:-translate-y-0.5 active:translate-y-0;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-
-  &:hover {
-    border-color: rgba(249, 115, 22, 0.5);
-    color: var(--text-primary);
-    background: var(--surface-hover);
-  }
-}
-
-@utility section-heading {
-  @apply text-3xl md:text-4xl font-bold;
-  color: var(--text-primary);
-  text-shadow: 0 0 48px rgba(249, 115, 22, 0.18);
-}
-
-@utility card {
-  @apply rounded-2xl p-6 transition-all duration-300;
-  background: var(--surface);
-  border: 1px solid var(--border);
-
-  &:hover {
-    background: var(--surface-hover);
-    border-color: var(--border-hover);
-    box-shadow: 0 0 28px rgba(249, 115, 22, 0.1);
-  }
-}
-
-@utility tech-tag {
-  @apply text-xs font-mono px-3 py-1 rounded-full;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  background: var(--surface);
-}
-
-@utility section-wrapper {
-  @apply w-full px-8 md:px-12 lg:px-16 py-24;
-  position: relative;
-  z-index: 1;
-}
-
-@utility section-number {
-  @apply font-mono text-teal-400 text-sm tracking-wider;
-}
-
-@utility section-header {
-  @apply flex items-center gap-4 mb-3;
-}
-
-@utility section-divider {
-  @apply flex-1 h-px;
-  background: var(--border);
-}
-
-@utility section-subtitle {
-  @apply text-base mb-14;
-  color: var(--text-muted);
-}
-
-@utility form-input {
-  /* Form inputs */
-  @apply w-full rounded-xl px-4 py-3 text-sm
-           focus:outline-hidden transition-all duration-200;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-
-  &::placeholder {
-    color: var(--text-faint);
-  }
-
-  &:focus {
-    border-color: rgba(234, 88, 12, 0.5);
-    background: var(--surface-hover);
-  }
-}
-
-@layer utilities {
-  /* ===================== THEME TOKENS ===================== */
-  :root {
-    /* LIGHT mode */
-    --bg: #fafaf8;
-    --surface: #ffffff;
-    --surface-hover: #f5f5f4;
-    --border: rgba(0, 0, 0, 0.09);
-    --border-hover: rgba(234, 88, 12, 0.3);
-    --text-primary: #1c1c1c;
-    --text-secondary: #525252;
-    --text-muted: #737373;
-    --text-faint: #a3a3a3;
-    --scrollbar-bg: #f0f0ee;
-    --grain-opacity: 0.018;
-    --nav-bg-scrolled: rgba(250, 250, 248, 0.96);
-    --mobile-menu-bg: rgba(250, 250, 248, 0.97);
-  }
-
-  .dark {
-    /* DARK mode */
-    --bg: #080808;
-    --surface: #161616;
-    --surface-hover: #1c1c1c;
-    --border: rgba(255, 255, 255, 0.07);
-    --border-hover: rgba(249, 115, 22, 0.25);
-    --text-primary: #f5f5f5;
-    --text-secondary: #a3a3a3;
-    --text-muted: #737373;
-    --text-faint: #525252;
-    --scrollbar-bg: #0a0a0a;
-    --grain-opacity: 0.028;
-    --nav-bg-scrolled: rgba(8, 8, 8, 0.93);
-    --mobile-menu-bg: rgba(8, 8, 8, 0.95);
-  }
-
-  /* ===================== BASE ===================== */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  ::before {
+    border-color: var(--line);
   }
 
   html {
-    scroll-behavior: smooth;
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
 
   body {
     background-color: var(--bg);
-    color: var(--text-primary);
-    overflow-x: hidden;
+    color: var(--ink);
+    font-size: 1.0625rem;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ── Film grain overlay — subtle human texture ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    pointer-events: none;
-    opacity: var(--grain-opacity);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 300px 300px;
+  section[id] {
+    scroll-margin-top: 5rem;
   }
 
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--scrollbar-bg);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #f97316;
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #fb923c;
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
-  /* Text Selection */
   ::selection {
-    background: rgba(249, 115, 22, 0.22);
-    color: #fff;
+    background: var(--accent-soft);
+    color: var(--ink);
   }
 
-  /* ===================== GRID BACKGROUND ===================== */
-  .bg-grid {
-    background-image:
-      linear-gradient(rgba(249, 115, 22, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(249, 115, 22, 0.035) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-
-  /* ===================== SKELETON SHIMMER ===================== */
   @media (prefers-reduced-motion: no-preference) {
-    @keyframes shimmer {
-      from {
-        transform: translateX(-100%);
-      }
-      to {
-        transform: translateX(100%);
-      }
+    html {
+      scroll-behavior: smooth;
     }
   }
-  .skeleton-shimmer {
-    position: relative;
-    overflow: hidden;
+}
+
+/* ===================== COMPONENTS ===================== */
+@utility container-page {
+  @apply mx-auto w-full max-w-[90rem] px-5 sm:px-8 lg:px-10;
+}
+
+/* Headings speak in Geist. */
+@utility font-display {
+  font-family: var(--heading-stack);
+  letter-spacing: -0.03em;
+}
+
+/* Martian Mono is wide by default; the condensed cut is reserved for code and the game. */
+@utility font-mono {
+  font-family: var(--mono-stack);
+  font-stretch: 75%;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 font-semibold;
+  min-height: 2.875rem;
+  font-size: 0.975rem;
+  transition:
+    background-color 150ms,
+    color 150ms,
+    border-color 150ms,
+    scale 150ms var(--ease-out);
+
+  &:active {
+    scale: 0.97;
   }
-  .skeleton-shimmer::after {
+
+  & svg {
+    transition: translate 250ms var(--ease-out);
+  }
+}
+
+@utility btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+
+  &:hover {
+    background: var(--accent-strong);
+  }
+}
+
+@utility btn-ghost {
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+
+  &:hover {
+    background: var(--well);
+  }
+}
+
+@utility tag {
+  @apply inline-flex items-center rounded-md px-2.5 py-1 text-sm;
+  background: var(--well);
+  color: var(--muted);
+}
+
+@utility text-link {
+  @apply font-medium underline decoration-1 underline-offset-4 transition-colors duration-150;
+  color: var(--ink);
+  text-decoration-color: var(--line-strong);
+
+  &:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+}
+
+@utility field {
+  @apply w-full rounded-lg px-3.5 py-3 text-base transition-colors duration-150;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+
+  &::placeholder {
+    color: var(--faint);
+  }
+
+  &:hover {
+    border-color: var(--faint);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+
+  &[aria-invalid='true'] {
+    border-color: var(--danger);
+  }
+}
+
+/* Project cards: the hovered one steps forward, its neighbours step back. */
+@utility project-card {
+  position: relative;
+  transition:
+    border-color 250ms,
+    box-shadow 400ms var(--ease-out),
+    translate 400ms var(--ease-out),
+    opacity 300ms;
+
+  &:focus-within {
+    border-color: var(--accent);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--accent);
+      translate: 0 -4px;
+      box-shadow: 0 22px 44px -28px var(--card-shadow);
+    }
+  }
+}
+
+@media (hover: hover) {
+  .project-list:has(.project-card:hover) .project-card:not(:hover) {
+    opacity: 0.74;
+  }
+}
+
+/* ===================== MOTION ===================== */
+/* Everything is visible by default. Scripts mark below-the-fold blocks as pending
+   and release them when they scroll in, so a failed script never hides content. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  .rise {
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  [data-reveal] {
+    transition:
+      opacity 700ms var(--ease-out),
+      transform 700ms var(--ease-out),
+      clip-path 800ms var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal='pending'] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: none;
+  }
+
+  /* Section headings wipe in from their baseline instead of fading. */
+  [data-reveal][data-kind='mask'] {
+    clip-path: inset(-0.2em -1em -0.3em -1em);
+  }
+
+  [data-reveal='pending'][data-kind='mask'] {
+    opacity: 1;
+    clip-path: inset(100% -1em -0.3em -1em);
+    transform: translateY(0.5em);
+  }
+
+  /* The hairline above each section draws itself from the left. */
+  .section-rule {
+    transform-origin: left;
+    transition: transform 1100ms var(--ease-out);
+  }
+
+  [data-rule='pending'] > .section-rule {
+    transform: scaleX(0);
+    transition: none;
+  }
+
+  .progress-fill {
+    transform-origin: left;
+    transition: transform 700ms var(--ease-out);
+    transition-delay: calc(var(--seg, 0) * 110ms + 150ms);
+  }
+
+  [data-reveal='pending'] .progress-fill {
+    transform: scaleX(0);
+    transition: none;
+  }
+
+  @keyframes live-ping {
+    0% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    70%,
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+
+  .live-dot::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.045) 50%,
-      transparent 100%
-    );
-    animation: shimmer 2.2s ease-in-out infinite;
+    border-radius: inherit;
+    background: var(--accent);
+    animation: live-ping 2.4s var(--ease-out) infinite;
   }
-  .light .skeleton-shimmer::after,
-  :root:not(.dark) .skeleton-shimmer::after {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(0, 0, 0, 0.04) 50%,
-      transparent 100%
-    );
-  }
-
-  /* ===================== MARQUEE ===================== */
-  @media (prefers-reduced-motion: no-preference) {
-    @keyframes tech-marquee {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-25%);
-      }
-    }
-  }
-
-  /* ===================== BLOB KEYFRAMES ===================== */
-  @media (prefers-reduced-motion: no-preference) {
-    @keyframes float1 {
-      0%,
-      100% {
-        transform: translate(0px, 0px) scale(1);
-      }
-      25% {
-        transform: translate(40px, -55px) scale(1.05);
-      }
-      50% {
-        transform: translate(15px, 30px) scale(0.96);
-      }
-      75% {
-        transform: translate(-30px, -15px) scale(1.02);
-      }
-    }
-    @keyframes float2 {
-      0%,
-      100% {
-        transform: translate(0px, 0px) scale(1);
-      }
-      25% {
-        transform: translate(-45px, 35px) scale(0.94);
-      }
-      50% {
-        transform: translate(25px, -48px) scale(1.06);
-      }
-      75% {
-        transform: translate(38px, 28px) scale(0.98);
-      }
-    }
-    @keyframes float3 {
-      0%,
-      100% {
-        transform: translate(0px, 0px) scale(1);
-      }
-      33% {
-        transform: translate(28px, 48px) scale(1.08);
-      }
-      66% {
-        transform: translate(-38px, -28px) scale(0.94);
-      }
-    }
-  }
-
-  /* ===================== COMPONENTS ===================== */
-}
-
-/* ===================== TIMELINE ===================== */
-.timeline-item {
-  position: relative;
-}
-.timeline-item:not(:last-child)::before {
-  content: '';
-  position: absolute;
-  left: 6px;
-  top: 22px;
-  width: 1px;
-  height: calc(100% + 2rem);
-  background: linear-gradient(to bottom, rgba(249, 115, 22, 0.5), transparent);
 }
