@@ -175,7 +175,7 @@ export const en = {
         period: 'Jul 2023 – Present',
         type: 'Volunteer',
         bullets: [
-          'Coaching a youth soccer team (currently U16) with a focus on skill development, teamwork and sportsmanship',
+          'Coaching a youth soccer team (currently U14) with a focus on skill development, teamwork and sportsmanship',
           'Organizing and leading regular training sessions and creating practice plans',
           'Collaborating with parents and club management to ensure a positive and supportive environment for the players',
         ],

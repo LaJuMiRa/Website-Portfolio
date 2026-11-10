@@ -79,7 +79,7 @@ export default function Header() {
       </a>
 
       <div className="container-page flex h-16 items-center justify-between gap-2 sm:gap-4">
-        <a href={onHome ? '#top' : '/'} className="whitespace-nowrap font-name text-base font-semibold sm:text-lg">
+        <a href={onHome ? '#top' : '/'} className="whitespace-nowrap font-display text-base font-semibold sm:text-lg">
           {SITE.name}
         </a>
 

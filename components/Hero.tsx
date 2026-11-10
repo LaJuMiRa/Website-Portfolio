@@ -26,7 +26,7 @@ export default function Hero() {
             id="hero-heading"
             aria-label={SITE.name}
             style={step(0)}
-            className="rise font-name text-[clamp(3.25rem,11vw,7.25rem)] font-extrabold leading-[0.95]"
+            className="rise font-display text-[clamp(3.25rem,11vw,7.25rem)] font-extrabold leading-[0.95] tracking-[-0.04em]"
           >
             <span className="block">
               <ScrambleText text="Laurenz" delay={150} duration={650} />

@@ -129,13 +129,7 @@
   letter-spacing: -0.03em;
 }
 
-/* Martian Mono is wide by default; the condensed cut is reserved for the name and for code. */
-@utility font-name {
-  font-family: var(--mono-stack);
-  font-stretch: 75%;
-  letter-spacing: -0.06em;
-}
-
+/* Martian Mono is wide by default; the condensed cut is reserved for code and the game. */
 @utility font-mono {
   font-family: var(--mono-stack);
   font-stretch: 75%;
