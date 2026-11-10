@@ -1,47 +1,63 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { en, de, type Translations } from '@/lib/translations'
 
-type Lang = 'en' | 'de'
+export type Lang = 'en' | 'de'
+
+const STORAGE_KEY = 'portfolio-lang'
+const DEFAULT_LANG: Lang = 'de'
 
 interface LanguageContextValue {
   lang: Lang
   t: Translations
-  toggleLang: () => void
+  setLang: (lang: Lang) => void
 }
 
 const LanguageContext = createContext<LanguageContextValue>({
-  lang: 'en',
-  t: en,
-  toggleLang: () => {},
+  lang: DEFAULT_LANG,
+  t: de,
+  setLang: () => {},
 })
 
 export function useLanguage() {
   return useContext(LanguageContext)
 }
 
+function readInitialLang(): Lang {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved === 'en' || saved === 'de') return saved
+  } catch {
+    // Storage can be blocked (private mode); fall through to the browser language.
+  }
+  return navigator.language.toLowerCase().startsWith('de') ? 'de' : 'en'
+}
+
 export default function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLang] = useState<Lang>('en')
+  const [lang, setLangState] = useState<Lang>(DEFAULT_LANG)
 
   useEffect(() => {
-    const saved = localStorage.getItem('portfolio-lang') as Lang | null
-    if (saved === 'en' || saved === 'de') setLang(saved)
+    setLangState(readInitialLang())
   }, [])
 
-  const toggleLang = () => {
-    setLang(prev => {
-      const next = prev === 'en' ? 'de' : 'en'
-      localStorage.setItem('portfolio-lang', next)
-      return next
-    })
-  }
+  useEffect(() => {
+    document.documentElement.lang = lang
+  }, [lang])
 
-  const t = lang === 'de' ? de : en
+  const setLang = useCallback((next: Lang) => {
+    setLangState(next)
+    try {
+      localStorage.setItem(STORAGE_KEY, next)
+    } catch {
+      // Preference just won't persist; the switch itself still works.
+    }
+  }, [])
 
-  return (
-    <LanguageContext.Provider value={{ lang, t, toggleLang }}>
-      {children}
-    </LanguageContext.Provider>
+  const value = useMemo(
+    () => ({ lang, t: lang === 'de' ? de : en, setLang }),
+    [lang, setLang],
   )
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
 }
