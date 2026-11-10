@@ -22,7 +22,10 @@
   --board-bg: #ffffff;
   --board-wall: #232937;
   --header-bg: rgba(243, 245, 249, 0.86);
-  --display-stack: var(--ff-display), ui-monospace, 'SF Mono', Menlo, monospace;
+  --card-shadow: rgba(18, 21, 31, 0.28);
+  --heading-stack: var(--ff-heading), var(--ff-body), ui-sans-serif, system-ui, sans-serif;
+  --mono-stack: var(--ff-mono), ui-monospace, 'SF Mono', Menlo, monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dark {
@@ -44,6 +47,7 @@
   --board-bg: #090b10;
   --board-wall: #2c3445;
   --header-bg: rgba(13, 16, 22, 0.86);
+  --card-shadow: rgba(0, 0, 0, 0.75);
 }
 
 @theme inline {
@@ -119,23 +123,41 @@
   @apply mx-auto w-full max-w-[90rem] px-5 sm:px-8 lg:px-10;
 }
 
-/* Martian Mono is wide by default; the condensed cut is the display voice of the site. */
+/* Headings speak in Geist. */
 @utility font-display {
-  font-family: var(--display-stack);
+  font-family: var(--heading-stack);
+  letter-spacing: -0.03em;
+}
+
+/* Martian Mono is wide by default; the condensed cut is reserved for the name and for code. */
+@utility font-name {
+  font-family: var(--mono-stack);
   font-stretch: 75%;
-  letter-spacing: -0.045em;
-  word-spacing: -0.2em;
+  letter-spacing: -0.06em;
 }
 
 @utility font-mono {
-  font-family: var(--display-stack);
+  font-family: var(--mono-stack);
   font-stretch: 75%;
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 font-semibold transition-colors duration-150;
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 font-semibold;
   min-height: 2.875rem;
   font-size: 0.975rem;
+  transition:
+    background-color 150ms,
+    color 150ms,
+    border-color 150ms,
+    scale 150ms var(--ease-out);
+
+  &:active {
+    scale: 0.97;
+  }
+
+  & svg {
+    transition: translate 250ms var(--ease-out);
+  }
 }
 
 @utility btn-primary {
@@ -198,8 +220,37 @@
   }
 }
 
+/* Project cards: the hovered one steps forward, its neighbours step back. */
+@utility project-card {
+  position: relative;
+  transition:
+    border-color 250ms,
+    box-shadow 400ms var(--ease-out),
+    translate 400ms var(--ease-out),
+    opacity 300ms;
+
+  &:focus-within {
+    border-color: var(--accent);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--accent);
+      translate: 0 -4px;
+      box-shadow: 0 22px 44px -28px var(--card-shadow);
+    }
+  }
+}
+
+@media (hover: hover) {
+  .project-list:has(.project-card:hover) .project-card:not(:hover) {
+    opacity: 0.74;
+  }
+}
+
 /* ===================== MOTION ===================== */
-/* One orchestrated entrance for the hero; everything else stays still. */
+/* Everything is visible by default. Scripts mark below-the-fold blocks as pending
+   and release them when they scroll in, so a failed script never hides content. */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes rise {
     from {
@@ -211,5 +262,73 @@
   .rise {
     animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
     animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  [data-reveal] {
+    transition:
+      opacity 700ms var(--ease-out),
+      transform 700ms var(--ease-out),
+      clip-path 800ms var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal='pending'] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: none;
+  }
+
+  /* Section headings wipe in from their baseline instead of fading. */
+  [data-reveal][data-kind='mask'] {
+    clip-path: inset(-0.2em -1em -0.3em -1em);
+  }
+
+  [data-reveal='pending'][data-kind='mask'] {
+    opacity: 1;
+    clip-path: inset(100% -1em -0.3em -1em);
+    transform: translateY(0.5em);
+  }
+
+  /* The hairline above each section draws itself from the left. */
+  .section-rule {
+    transform-origin: left;
+    transition: transform 1100ms var(--ease-out);
+  }
+
+  [data-rule='pending'] > .section-rule {
+    transform: scaleX(0);
+    transition: none;
+  }
+
+  .progress-fill {
+    transform-origin: left;
+    transition: transform 700ms var(--ease-out);
+    transition-delay: calc(var(--seg, 0) * 110ms + 150ms);
+  }
+
+  [data-reveal='pending'] .progress-fill {
+    transform: scaleX(0);
+    transition: none;
+  }
+
+  @keyframes live-ping {
+    0% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    70%,
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+
+  .live-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--accent);
+    animation: live-ping 2.4s var(--ease-out) infinite;
   }
 }

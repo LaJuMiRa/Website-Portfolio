@@ -2,16 +2,22 @@ import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/next'
-import { Martian_Mono, Schibsted_Grotesk } from 'next/font/google'
+import { Geist, Martian_Mono, Schibsted_Grotesk } from 'next/font/google'
 import './globals.css'
 import ThemeProvider from '@/components/ThemeProvider'
 import LanguageProvider from '@/components/LanguageProvider'
 import { SITE } from '@/lib/site'
 
-const display = Martian_Mono({
+const heading = Geist({
+  subsets: ['latin'],
+  variable: '--ff-heading',
+  display: 'swap',
+})
+
+const mono = Martian_Mono({
   subsets: ['latin'],
   axes: ['wdth'],
-  variable: '--ff-display',
+  variable: '--ff-mono',
   display: 'swap',
 })
 
@@ -61,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="de"
-      className={`dark ${display.variable} ${body.variable}`}
+      className={`dark ${heading.variable} ${mono.variable} ${body.variable}`}
       suppressHydrationWarning
     >
       <head>

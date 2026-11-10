@@ -22,7 +22,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
         <header className="mt-8 grid gap-8 border-b border-line pb-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-16 md:mt-10 md:pb-14">
           <div>
-            <h1 className="rise font-display text-[clamp(2.5rem,7.5vw,5.5rem)] font-extrabold leading-[0.98] tracking-[-0.06em] break-words">
+            <h1 className="rise font-display text-[clamp(2.5rem,7.5vw,5.5rem)] font-bold leading-[1] tracking-[-0.04em] break-words">
               {project.title}
             </h1>
             <p className="mt-5 max-w-2xl text-xl font-medium text-muted md:text-[1.375rem]">{text.tagline}</p>

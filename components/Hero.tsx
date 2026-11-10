@@ -3,6 +3,7 @@
 import type { CSSProperties } from 'react'
 import { ArrowDown, Download } from 'lucide-react'
 import { useLanguage } from './LanguageProvider'
+import ScrambleText from './ScrambleText'
 import { SITE } from '@/lib/site'
 
 const step = (i: number) => ({ '--i': i }) as CSSProperties
@@ -23,11 +24,16 @@ export default function Hero() {
         <div>
           <h1
             id="hero-heading"
+            aria-label={SITE.name}
             style={step(0)}
-            className="rise font-display text-[clamp(3.25rem,11vw,7.25rem)] font-extrabold leading-[0.95] tracking-[-0.06em]"
+            className="rise font-name text-[clamp(3.25rem,11vw,7.25rem)] font-extrabold leading-[0.95]"
           >
-            <span className="block">Laurenz</span>
-            <span className="block">Rauscher</span>
+            <span className="block">
+              <ScrambleText text="Laurenz" delay={150} duration={650} />
+            </span>
+            <span className="block">
+              <ScrambleText text="Rauscher" delay={550} duration={750} />
+            </span>
           </h1>
 
           <p
@@ -42,7 +48,7 @@ export default function Hero() {
           </p>
 
           <div style={step(3)} className="rise mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="#projects" className="btn btn-primary">
+            <a href="#projects" className="btn btn-primary hover:[&_svg]:translate-y-0.5">
               {t.hero.viewProjects}
               <ArrowDown size={17} aria-hidden />
             </a>
@@ -59,7 +65,7 @@ export default function Hero() {
               <dt className="text-[0.95rem] text-muted">{fact.label}</dt>
               <dd className="flex items-baseline gap-2.5 font-medium">
                 {fact.live && (
-                  <span aria-hidden className="relative top-[-1px] inline-block size-2 shrink-0 rounded-full bg-accent" />
+                  <span aria-hidden className="live-dot relative top-[-1px] inline-block size-2 shrink-0 rounded-full bg-accent" />
                 )}
                 {fact.value}
               </dd>

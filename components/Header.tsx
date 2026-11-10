@@ -52,10 +52,11 @@ export default function Header() {
   const { t } = useLanguage()
   const [menuOpen, setMenuOpen] = useState(false)
   const activeSection = useActiveSection(SECTION_IDS)
-  const onHome = usePathname() === '/'
-  // Project pages live outside the one-pager: link back to it and keep "Projects" marked.
+  const pathname = usePathname()
+  const onHome = pathname === '/'
+  // Sub-pages live outside the one-pager: link back to it and keep their section marked.
   const base = onHome ? '' : '/'
-  const active = onHome ? activeSection : 'projects'
+  const active = onHome ? activeSection : pathname.startsWith('/experience') ? 'experience' : 'projects'
 
   useEffect(() => {
     if (!menuOpen) return
@@ -78,7 +79,7 @@ export default function Header() {
       </a>
 
       <div className="container-page flex h-16 items-center justify-between gap-2 sm:gap-4">
-        <a href={onHome ? '#top' : '/'} className="whitespace-nowrap font-display text-base font-semibold sm:text-lg">
+        <a href={onHome ? '#top' : '/'} className="whitespace-nowrap font-name text-base font-semibold sm:text-lg">
           {SITE.name}
         </a>
 
@@ -121,7 +122,7 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <nav id="mobile-menu" aria-label={t.a11y.mainNav} className="border-t border-line bg-bg md:hidden">
+        <nav id="mobile-menu" aria-label={t.a11y.mainNav} className="rise border-t border-line bg-bg md:hidden">
           <ul className="container-page py-3">
             {links.map(link => (
               <li key={link.id}>

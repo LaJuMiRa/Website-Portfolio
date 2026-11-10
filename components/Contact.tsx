@@ -1,13 +1,13 @@
 'use client'
 
-import { ArrowUpRight, Github, Linkedin } from 'lucide-react'
+import { ArrowUpRight, Github, Instagram, Linkedin } from 'lucide-react'
 import Section from './Section'
 import ContactForm from './ContactForm'
 import CopyButton from './CopyButton'
 import { useLanguage } from './LanguageProvider'
 import { SITE } from '@/lib/site'
 
-const ICONS = { github: Github, linkedin: Linkedin } as const
+const ICONS = { github: Github, linkedin: Linkedin, instagram: Instagram } as const
 
 export default function Contact() {
   const { t } = useLanguage()
@@ -48,7 +48,7 @@ export default function Contact() {
                     <ArrowUpRight
                       size={18}
                       aria-hidden
-                      className="ml-auto text-faint transition-colors group-hover:text-accent"
+                      className="ml-auto text-faint transition-[color,translate] duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
                     />
                   </a>
                 </li>

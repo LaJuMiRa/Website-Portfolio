@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, Github } from 'lucide-react'
 import Section from './Section'
+import Reveal from './Reveal'
 import { useLanguage } from './LanguageProvider'
 import ProjectVisual from './visuals/ProjectVisual'
 import { PROJECTS, projectPath, type Project } from '@/lib/projects'
@@ -14,7 +15,10 @@ function ProjectText({ project, t, large = false }: { project: Project; t: Trans
   return (
     <div className="flex flex-col items-start">
       <h3 className={`font-display font-semibold ${large ? 'text-[1.75rem] md:text-[2rem]' : 'text-2xl'}`}>
-        <Link href={projectPath(project.id)} className="transition-colors hover:text-accent">
+        <Link
+          href={projectPath(project.id)}
+          className="transition-colors after:absolute after:inset-0 after:content-[''] group-hover/card:text-accent"
+        >
           {project.title}
         </Link>
       </h3>
@@ -26,13 +30,22 @@ function ProjectText({ project, t, large = false }: { project: Project; t: Trans
           </li>
         ))}
       </ul>
-      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+      <div className="relative z-10 mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
         <Link href={projectPath(project.id)} className="text-link inline-flex items-center gap-2">
           {detailLabel}
-          <ArrowRight size={17} aria-hidden />
+          <ArrowRight
+            size={17}
+            aria-hidden
+            className="transition-transform duration-300 ease-out group-hover/card:translate-x-1"
+          />
           <span className="sr-only">: {project.title}</span>
         </Link>
-        <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-link inline-flex items-center gap-2">
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-link inline-flex items-center gap-2"
+        >
           <Github size={17} aria-hidden />
           {t.projects.codeLink}
           <span className="sr-only">: {project.title}</span>
@@ -49,31 +62,42 @@ export default function Projects() {
 
   return (
     <Section id="projects" heading={t.projects.heading} intro={t.projects.intro}>
-      <article className="grid overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-        <div className="min-h-64 border-b border-line bg-well lg:border-r lg:border-b-0">
-          <ProjectVisual id={featured.id} />
-        </div>
-        <div className="flex items-center p-7 md:p-10">
-          <ProjectText project={featured} t={t} large />
-        </div>
-      </article>
-
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
-        {rest.map(project => (
-          <article key={project.id} className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface">
-            <div className="flex min-h-64 border-b border-line bg-well md:h-72">
-              <ProjectVisual id={project.id} />
+      <div className="project-list">
+        <Reveal>
+          <article className="project-card group/card grid overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+            <div className="min-h-64 border-b border-line bg-well lg:border-r lg:border-b-0">
+              <ProjectVisual id={featured.id} />
             </div>
-            <div className="p-7 md:p-8">
-              <ProjectText project={project} t={t} />
+            <div className="flex items-center p-7 md:p-10">
+              <ProjectText project={featured} t={t} large />
             </div>
           </article>
-        ))}
+        </Reveal>
+
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          {rest.map((project, index) => (
+            <Reveal key={project.id} delay={index * 110} className="flex">
+              <article className="project-card group/card flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-surface">
+                <div className="flex min-h-64 border-b border-line bg-well md:h-72">
+                  <ProjectVisual id={project.id} />
+                </div>
+                <div className="p-7 md:p-8">
+                  <ProjectText project={project} t={t} />
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
 
       {github && (
         <p className="mt-10">
-          <a href={github.href} target="_blank" rel="noopener noreferrer" className="text-link inline-flex items-center gap-1.5">
+          <a
+            href={github.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link inline-flex items-center gap-1.5"
+          >
             {t.projects.more}
             <ArrowUpRight size={17} aria-hidden />
           </a>

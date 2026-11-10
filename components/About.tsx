@@ -3,12 +3,13 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Section from './Section'
+import Reveal from './Reveal'
 import { useLanguage } from './LanguageProvider'
 import { SKILLS, type Skill } from '@/lib/site'
 import { PROJECTS, projectPath } from '@/lib/projects'
 
 const TAG_CLASS =
-  'tag text-base font-medium text-ink transition-colors duration-150 hover:bg-accent-soft hover:text-accent focus-visible:bg-accent-soft focus-visible:text-accent'
+  'tag text-base font-medium text-ink transition-[color,background-color,scale] duration-200 ease-out hover:scale-110 hover:bg-accent-soft hover:text-accent focus-visible:scale-110 focus-visible:bg-accent-soft focus-visible:text-accent'
 
 const projectTitle = (skill: Skill) => PROJECTS.find(project => project.id === skill.project)?.title
 
@@ -55,12 +56,12 @@ export default function About() {
   return (
     <Section id="about" heading={t.about.heading}>
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-20">
-        <div className="max-w-[72ch] space-y-5 text-lg">
+        <Reveal className="max-w-[72ch] space-y-5 text-lg">
           <p>{t.about.bio1}</p>
           <p className="text-muted">{t.about.bio2}</p>
-        </div>
+        </Reveal>
 
-        <div>
+        <Reveal delay={120}>
           <h3 className="mb-4 font-display text-xl font-semibold">{t.about.skillsHeading}</h3>
           <SkillGroup title={t.about.primary} items={SKILLS.primary} usedIn={t.about.usedIn} onActive={setActive} />
           <SkillGroup title={t.about.familiar} items={SKILLS.familiar} usedIn={t.about.usedIn} onActive={setActive} />
@@ -75,7 +76,7 @@ export default function About() {
               t.about.stackHint
             )}
           </p>
-        </div>
+        </Reveal>
       </div>
     </Section>
   )

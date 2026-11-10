@@ -24,9 +24,9 @@ export default function Footer() {
             </li>
           ))}
           <li>
-            <a href="#top" className="inline-flex items-center gap-1.5 transition-colors hover:text-ink">
+            <a href="#top" className="group inline-flex items-center gap-1.5 transition-colors hover:text-ink">
               {t.footer.backToTop}
-              <ArrowUp size={16} aria-hidden />
+              <ArrowUp size={16} aria-hidden className="transition-transform duration-200 group-hover:-translate-y-0.5" />
             </a>
           </li>
         </ul>

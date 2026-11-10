@@ -18,6 +18,12 @@ export const SITE = {
       handle: 'Laurenz Rauscher',
       href: 'https://www.linkedin.com/in/laurenz-rauscher-299931234',
     },
+    {
+      id: 'instagram',
+      name: 'Instagram',
+      handle: '@lajumira004',
+      href: 'https://www.instagram.com/lajumira004',
+    },
   ],
 } as const
 
