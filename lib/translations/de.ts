@@ -20,7 +20,7 @@ export const de: Translations = {
   hero: {
     role: 'Informatik-Student an der FH Wiener Neustadt.',
     tagline: 'Noch am Lernen. Schon am Entwickeln.',
-    lead: 'Ich bin angehender Softwareentwickler aus Wien und baue saubere, schnelle Anwendungen, von Systemprogrammierung in C bis zur Browser-Erweiterung.',
+    lead: 'Ich bin angehender Softwareentwickler aus Wien und baue saubere, schnelle Anwendungen mit überlegtem Software Design.',
     viewProjects: 'Projekte ansehen',
     downloadResume: 'Lebenslauf herunterladen (PDF)',
   },
@@ -78,7 +78,7 @@ export const de: Translations = {
         tagline: 'Ein Dungeon Crawler für das Terminal, geschrieben in Python',
         paragraphs: [
           'Jeder Durchlauf erzeugt einen neuen Dungeon, der das Terminalfenster ausfüllt. Eine Wand teilt die Karte: Eine Hälfte erkundest du, die andere ein KI-Rivale. Beide sammeln Ausrüstung, weichen Fallen aus und kämpfen gegen Monster, um aufzusteigen. Wer stärker ist, wenn ihr euch in der Arena in der Mitte trefft, gewinnt.',
-          'Begonnen hat es als Projekt an der FH. Seither verfeinere und erweitere ich es laufend. Auf dieses Projekt bin ich am meisten stolz.',
+          'Begonnen hat es als Projekt an der FH. Seither verfeinere und erweitere ich es laufend.',
         ],
         highlights: [],
       },
@@ -126,7 +126,7 @@ export const de: Translations = {
       legendTitle: 'Was auf der Karte zu sehen ist',
       legend: {
         you: 'Du',
-        rival: 'Der KI-Rivale',
+        rival: 'Der KI-Gegner',
         door: 'Tor zur Arena',
         weapon: 'Waffe, erhöht den Angriff',
         armor: 'Rüstung, erhöht die Verteidigung',

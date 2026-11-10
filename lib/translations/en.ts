@@ -26,7 +26,7 @@ export const en = {
   hero: {
     role: 'Computer science student at FH Wiener Neustadt.',
     tagline: 'Still learning. Already building.',
-    lead: "I'm a software developer in the making from Vienna. I build clean, fast applications, from systems programming in C to browser extensions.",
+    lead: "I'm a future software developer from Vienna. I build clean, fast applications with well considered software design.",
     viewProjects: 'View projects',
     downloadResume: 'Download resume (PDF)',
   },
@@ -84,7 +84,7 @@ export const en = {
         tagline: 'A dungeon crawler for the terminal, written in Python',
         paragraphs: [
           'Every run builds a new dungeon that fills your terminal window. A wall splits the map in two: you explore one half, an AI rival explores the other. Both of you collect gear, dodge traps and fight monsters to level up. Whoever is stronger when you meet in the arena at the center wins.',
-          'It started as a university project. I have kept refining and extending it ever since, and it is the project I am proudest of.',
+          'It started as a university project. I have kept refining and extending it ever since.',
         ],
         highlights: [],
       },
@@ -160,7 +160,7 @@ export const en = {
       {
         id: 'study',
         role: 'Computer Science',
-        company: 'University of Applied Sciences Wiener Neustadt',
+        company: 'FH Wiener Neustadt',
         location: 'Wiener Neustadt',
         period: 'Sep 2025 – Present',
         type: "Bachelor's degree",
@@ -193,7 +193,7 @@ export const en = {
       {
         period: 'Sep 2025 – Present',
         role: 'Computer Science',
-        place: 'University of Applied Sciences Wiener Neustadt',
+        place: 'FH Wiener Neustadt',
         text: '',
         current: true,
       },
