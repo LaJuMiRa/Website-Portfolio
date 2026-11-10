@@ -259,10 +259,8 @@ export const de: Translations = {
     copyFailed: 'Kopieren fehlgeschlagen',
     onlineHeading: 'Online',
     nameLabel: 'Name',
-    emailLabel: 'E-Mail',
     messageLabel: 'Nachricht',
     namePlaceholder: 'Max Mustermann',
-    emailPlaceholder: 'max.mustermann@beispiel.com',
     messagePlaceholder: 'Hallo Laurenz, ich würde gerne über ... sprechen',
     submit: 'E-Mail-Entwurf öffnen',
     submitHint: 'Öffnet dein E-Mail-Programm mit der fertigen Nachricht.',
@@ -272,7 +270,6 @@ export const de: Translations = {
       'Dein E-Mail-Programm wurde mit der fertigen Nachricht geöffnet. Klicke dort auf Senden und ich melde mich bald bei dir.',
     sendAnother: 'Weitere Nachricht schreiben',
     errorRequired: 'Bitte fülle dieses Feld aus.',
-    errorEmail: 'Bitte gib eine gültige E-Mail-Adresse ein.',
   },
   footer: {
     backToTop: 'Nach oben',

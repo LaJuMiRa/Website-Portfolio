@@ -265,10 +265,8 @@ export const en = {
     copyFailed: 'Copying failed',
     onlineHeading: 'Online',
     nameLabel: 'Name',
-    emailLabel: 'Email',
     messageLabel: 'Message',
     namePlaceholder: 'Max Mustermann',
-    emailPlaceholder: 'max.mustermann@example.com',
     messagePlaceholder: "Hi Laurenz, I'd love to talk about ...",
     submit: 'Open email draft',
     submitHint: 'Opens your email app with the finished message.',
@@ -278,7 +276,6 @@ export const en = {
       'Your email app opened with the message pre-filled. Hit send there and I will get back to you soon.',
     sendAnother: 'Write another message',
     errorRequired: 'Please fill in this field.',
-    errorEmail: 'Please enter a valid email address.',
   },
   footer: {
     backToTop: 'Back to top',

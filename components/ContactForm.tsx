@@ -13,7 +13,7 @@ import {
 } from '@/lib/contact'
 import { SITE } from '@/lib/site'
 
-const FIELD_ORDER: readonly ContactField[] = ['name', 'email', 'message']
+const FIELD_ORDER: readonly ContactField[] = ['name', 'message']
 
 interface FieldProps {
   name: ContactField
@@ -45,12 +45,7 @@ function Field({ name, label, placeholder, value, error, onChange }: FieldProps)
       {name === 'message' ? (
         <textarea {...shared} rows={6} onChange={event => onChange(name, event.target.value)} className="field resize-y" />
       ) : (
-        <input
-          {...shared}
-          type={name === 'email' ? 'email' : 'text'}
-          autoComplete={name === 'email' ? 'email' : 'name'}
-          onChange={event => onChange(name, event.target.value)}
-        />
+        <input {...shared} type="text" autoComplete="name" onChange={event => onChange(name, event.target.value)} />
       )}
       {error && (
         <p id={errorId} className="mt-1.5 text-sm font-medium text-danger">
@@ -68,7 +63,7 @@ export default function ContactForm() {
   const [errors, setErrors] = useState<ContactErrors>({})
   const [opened, setOpened] = useState(false)
 
-  const messages = { required: t.contact.errorRequired, email: t.contact.errorEmail }
+  const messages = { required: t.contact.errorRequired }
 
   const handleChange = (name: ContactField, value: string) => {
     setValues(current => ({ ...current, [name]: value }))
@@ -117,24 +112,14 @@ export default function ContactForm() {
       noValidate
       className="space-y-5 rounded-2xl border border-line bg-surface p-6 md:p-9"
     >
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field
-          name="name"
-          label={t.contact.nameLabel}
-          placeholder={t.contact.namePlaceholder}
-          value={values.name}
-          error={errors.name && messages[errors.name]}
-          onChange={handleChange}
-        />
-        <Field
-          name="email"
-          label={t.contact.emailLabel}
-          placeholder={t.contact.emailPlaceholder}
-          value={values.email}
-          error={errors.email && messages[errors.email]}
-          onChange={handleChange}
-        />
-      </div>
+      <Field
+        name="name"
+        label={t.contact.nameLabel}
+        placeholder={t.contact.namePlaceholder}
+        value={values.name}
+        error={errors.name && messages[errors.name]}
+        onChange={handleChange}
+      />
       <Field
         name="message"
         label={t.contact.messageLabel}
