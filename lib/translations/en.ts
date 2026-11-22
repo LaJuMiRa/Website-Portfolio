@@ -50,6 +50,10 @@ export const en = {
     descriptions: {
       'dungeon-crawler':
         'A turn-based roguelike for the terminal: race an AI rival through a procedurally generated dungeon, then face it in the arena.',
+      vslike:
+        'A native C# IDE for macOS with IntelliSense, build, tests, debugger, StyleCop and a class diagram that writes straight into the code. The interface is Swift, the C# analysis runs on Roslyn in a background process.',
+      seasons:
+        'A menu bar app that lets snow, autumn leaves, rain and cherry blossoms fall over the Mac desktop. They pile up on the Dock and on window tops, and you can sweep them away with the pointer.',
       dispatcher:
         'A systems programming demo in C with a parent-child process architecture for distributed task processing. Workers communicate via POSIX message queues, with configurable pool sizes, bounded task queues and graceful shutdown.',
       'browsing-wrapped':
@@ -57,6 +61,8 @@ export const en = {
     } satisfies Record<ProjectId, string> as Record<ProjectId, string>,
     visuals: {
       dungeon: 'Animated sketch: player and AI rival race through a dungeon towards the exit.',
+      vslike: 'Sketch of a code editor: IntelliSense suggests WriteLine while Console.Wr is being typed.',
+      seasons: 'Animated sketch: snow falls on a desktop and piles up on a window and the Dock.',
       dispatcher: 'Diagram: a parent process sends tasks through a message queue to three workers.',
       wrapped: 'Sketch of a weekly recap with the most visited sites.',
       wrappedTitle: 'Your week',
@@ -87,6 +93,31 @@ export const en = {
           'It started as a university project. I have kept refining and extending it ever since.',
         ],
         highlights: [],
+      },
+      vslike: {
+        tagline: 'A native C# IDE for macOS, written in Swift',
+        paragraphs: [
+          'VsLike brings the essentials of an IDE for C# to the Mac as a native app: an editor with IntelliSense, quick fixes and refactorings, build, test explorer and a debugger with conditional breakpoints. Programs run in a built-in terminal and can read input.',
+          'The interface is written in Swift with SwiftUI and AppKit. The C# analysis runs in a separate background process built on Roslyn, the compiler platform behind C#, and talks to the app via JSON-RPC.',
+          'The class diagram works both ways: changing types, members or inheritance in the diagram changes the code, and code changes show up in the diagram immediately.',
+        ],
+        highlights: [
+          'Swift interface and C# analysis engine as two separate processes.',
+          'StyleCop can be switched on per solution and respects .editorconfig and stylecop.json.',
+          'German and English interface, installs with Homebrew.',
+        ],
+      },
+      seasons: {
+        tagline: 'Seasonal weather for the Mac desktop',
+        paragraphs: [
+          'Seasons lets snow, autumn leaves, rain or cherry blossoms fall over the desktop. Everything piles up on the bottom of the screen, on the Dock and on the top edges of windows. Move a window quickly and its snow slides off, sweep the pointer through a pile and the snow flies up again. In spring, flowers grow along the Dock.',
+          'The simulation lives in its own Swift module without AppKit or Metal, so it can be tested on its own and reused for a later port to Windows or Linux. Drawing is done by Metal shaders, without a single image file.',
+        ],
+        highlights: [
+          'Picks the effect from the season automatically.',
+          'Pauses when the screen is locked, covered or nothing moves, and lowers the frame rate on battery.',
+          'No permissions needed, no network access, installs with Homebrew.',
+        ],
       },
       dispatcher: {
         tagline: 'A task dispatcher built on plain POSIX processes',

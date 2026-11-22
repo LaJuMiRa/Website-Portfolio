@@ -1,4 +1,4 @@
-export type ProjectId = 'dungeon-crawler' | 'dispatcher' | 'browsing-wrapped'
+export type ProjectId = 'dungeon-crawler' | 'vslike' | 'seasons' | 'dispatcher' | 'browsing-wrapped'
 
 export interface Project {
   id: ProjectId
@@ -14,6 +14,18 @@ export const PROJECTS: readonly Project[] = [
     title: 'Dungeon-Crawler',
     tech: ['Python'],
     github: 'https://github.com/LaJuMiRa/dungen-crawler',
+  },
+  {
+    id: 'vslike',
+    title: 'VsLike',
+    tech: ['Swift', 'SwiftUI', 'C#', 'Roslyn'],
+    github: 'https://github.com/LaJuMiRa/vslike',
+  },
+  {
+    id: 'seasons',
+    title: 'Seasons',
+    tech: ['Swift', 'Metal', 'AppKit'],
+    github: 'https://github.com/LaJuMiRa/Seasons',
   },
   {
     id: 'dispatcher',

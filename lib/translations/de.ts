@@ -44,6 +44,10 @@ export const de: Translations = {
     descriptions: {
       'dungeon-crawler':
         'Ein rundenbasiertes Roguelike für das Terminal: Du trittst in einem prozedural generierten Dungeon gegen einen KI-Rivalen an und stellst dich ihm am Ende in der Arena.',
+      vslike:
+        'Eine native C#-IDE für macOS mit IntelliSense, Build, Tests, Debugger, StyleCop und einem Klassendiagramm, das direkt in den Code schreibt. Die Oberfläche ist in Swift geschrieben, die C#-Analyse übernimmt Roslyn in einem Hintergrundprozess.',
+      seasons:
+        'Eine Menüleisten-App, die Schnee, Herbstlaub, Regen und Kirschblüten über den Mac-Schreibtisch fallen lässt. Sie türmen sich auf dem Dock und auf Fensterkanten, und du kannst sie mit dem Mauszeiger wegwischen.',
       dispatcher:
         'Eine Systemprogrammierungs-Demo in C mit einer Eltern-Kind-Prozessarchitektur für verteilte Aufgabenverarbeitung. Die Worker kommunizieren über POSIX-Message-Queues, mit konfigurierbarer Pool-Größe, begrenzten Aufgabenwarteschlangen und sauberem Shutdown.',
       'browsing-wrapped':
@@ -51,6 +55,8 @@ export const de: Translations = {
     },
     visuals: {
       dungeon: 'Animierte Skizze: Spieler und KI-Rivale laufen durch einen Dungeon um die Wette zum Ausgang.',
+      vslike: 'Skizze eines Code-Editors: IntelliSense schlägt WriteLine vor, während Console.Wr getippt wird.',
+      seasons: 'Animierte Skizze: Schnee fällt auf einen Schreibtisch und bleibt auf einem Fenster und dem Dock liegen.',
       dispatcher: 'Diagramm: Ein Elternprozess schickt Aufgaben über eine Message-Queue an drei Worker.',
       wrapped: 'Skizze eines Wochenrückblicks mit den meistbesuchten Seiten.',
       wrappedTitle: 'Deine Woche',
@@ -81,6 +87,31 @@ export const de: Translations = {
           'Begonnen hat es als Projekt an der FH. Seither verfeinere und erweitere ich es laufend.',
         ],
         highlights: [],
+      },
+      vslike: {
+        tagline: 'Eine native C#-IDE für macOS, geschrieben in Swift',
+        paragraphs: [
+          'VsLike bringt das Wichtigste einer C#-IDE als native App auf den Mac: einen Editor mit IntelliSense, Quick-Actions und Refactorings, Build, Test-Explorer und einen Debugger mit bedingten Haltepunkten. Programme laufen in einem eingebauten Terminal und können Eingaben lesen.',
+          'Die Oberfläche ist in Swift mit SwiftUI und AppKit geschrieben. Die C#-Analyse läuft in einem eigenen Hintergrundprozess auf Basis von Roslyn, der Compiler-Plattform hinter C#, und spricht per JSON-RPC mit der App.',
+          'Das Klassendiagramm arbeitet in beide Richtungen: Änderungen an Typen, Mitgliedern oder Vererbung im Diagramm ändern den Code, Codeänderungen erscheinen sofort im Diagramm.',
+        ],
+        highlights: [
+          'Swift-Oberfläche und C#-Analyse-Engine als zwei getrennte Prozesse.',
+          'StyleCop lässt sich pro Solution einschalten und respektiert .editorconfig und stylecop.json.',
+          'Oberfläche auf Deutsch und Englisch, Installation über Homebrew.',
+        ],
+      },
+      seasons: {
+        tagline: 'Jahreszeiten-Wetter für den Mac-Schreibtisch',
+        paragraphs: [
+          'Seasons lässt Schnee, Herbstlaub, Regen oder Kirschblüten über den Schreibtisch fallen. Alles türmt sich am unteren Bildschirmrand, auf dem Dock und auf den Oberkanten der Fenster. Wer ein Fenster schnell verschiebt, lässt den Schnee abrutschen, wer mit dem Mauszeiger durch einen Haufen fährt, wirbelt ihn wieder auf. Im Frühling wachsen Blumen am Dock.',
+          'Die Simulation steckt in einem eigenen Swift-Modul ohne AppKit und Metal. So lässt sie sich für sich testen und später für eine Portierung auf Windows oder Linux wiederverwenden. Gezeichnet wird mit Metal-Shadern, ganz ohne Bilddateien.',
+        ],
+        highlights: [
+          'Wählt den Effekt automatisch nach der Jahreszeit.',
+          'Pausiert bei gesperrtem oder verdecktem Bildschirm und wenn sich nichts bewegt, im Akkubetrieb sinkt die Bildrate.',
+          'Keine Berechtigungen nötig, kein Netzwerkzugriff, Installation über Homebrew.',
+        ],
       },
       dispatcher: {
         tagline: 'Ein Task-Dispatcher aus einfachen POSIX-Prozessen',
