@@ -41,10 +41,11 @@ export const SKILLS: Record<'primary' | 'familiar', readonly Skill[]> = {
     { name: 'C', project: 'dispatcher' },
     { name: 'Python', project: 'dungeon-crawler' },
     { name: 'Linux', project: 'dispatcher' },
-    { name: 'C#' },
+    { name: 'C#', project: 'vslike' },
   ],
   familiar: [
     { name: 'C++' },
+    { name: 'Swift', project: 'seasons' },
     { name: 'SQL' },
     { name: 'JavaScript', project: 'browsing-wrapped' },
     { name: 'TypeScript' },

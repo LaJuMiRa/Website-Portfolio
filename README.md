@@ -10,7 +10,7 @@ Personal portfolio with projects, a playable browser version of my dungeon crawl
 |-------|---------|
 | `/` | One-pager: hero, projects, about, experience, contact |
 | `/projects/dungeon-crawler/` | Playable Dungeon-Crawler (demo mode or play it yourself), legend, run commands |
-| `/projects/dispatcher/`, `/projects/browsing-wrapped/` | Project detail pages |
+| `/projects/vslike/`, `/projects/seasons/`, `/projects/dispatcher/`, `/projects/browsing-wrapped/` | Project detail pages |
 | `/experience/` | Full career history: education, work, volunteering, languages, certificates |
 
 ## Features
